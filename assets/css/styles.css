@@ -1,0 +1,78 @@
+/* Matrix canvas fills background */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: black;
+}
+
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: monospace;
+  color: #00ff41; /* Matrix green */
+  line-height: 1.6;
+}
+
+/* Header & Navigation */
+header {
+  text-align: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px); /* Adds a subtle blur to the background behind the header */
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #39ff14;
+  text-shadow: 0 0 10px #00ff41;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+nav ul li a {
+  color: #00ff41;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: #ff2e63; /* Neon pink (Evangelion accent) */
+}
+
+/* Sections */
+section {
+  padding: 50px;
+  margin: 40px auto;
+  width: 80%;
+  max-width: 900px; /* Limits the section width on large screens for readability */
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+  text-align: center; /* Centers the content within each section */
+  box-sizing: border-box; /* Ensures padding doesn't affect the element's total width */
+}
+
+section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #39ff14;
+  text-shadow: 0 0 8px #00ff41;
+}
+
+section p {
+  font-size: 1rem;
+  color: #c1f9c1;
+}
