@@ -7,7 +7,8 @@ canvas.height = window.innerHeight;
 canvas.width = window.innerWidth;
 
 // Characters for the Matrix rain effect
-const letters = "アァイィウヴエェオカキクケコサシスセソタチツテトナニヌネノ0123456789";
+const letters = "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन । मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि 汝の権利はただ行為にのみあり、果実には決してあらず。行為の果実の原因となるなかれ、また不行為に執着することなかれ。" ;
+
 const lettersArr = letters.split("");
 
 const fontSize = 16;
@@ -25,7 +26,7 @@ function draw() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // Set the color and font for the new characters
-  ctx.fillStyle = "#0F0";
+  ctx.fillStyle = "#52d053";
   ctx.font = fontSize + "px monospace";
 
   // Loop through each drop to draw a new character
