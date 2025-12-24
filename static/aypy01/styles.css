@@ -1,0 +1,381 @@
+        /* =========================================
+           1. VARIABLE DEFINITIONS & ROOT
+           ========================================= */
+        :root {
+            --primary-orange: #ff5500; 
+            --primary-red: #ff0000;
+            --primary-green:rgb(67, 220, 67);
+            --dim-orange: rgba(255, 85, 0, 0.1);
+            --tertiary-color: #ff9d00;
+            --bg-dark: #121212;
+            --bg-panel: #1a1a1a;
+            --text-grey: #b0b0b0;
+            --text-light: #e0e0e0;
+            --border-color: #333;
+            --grid-line: rgba(255, 255, 255, 0.05);
+        }
+
+        * { box-sizing: border-box; user-select: none; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: #050505;
+            height: 100vh; width: 100vw;
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Space Mono', monospace;
+            overflow: hidden;
+            color: var(--text-grey);
+            box-shadow: inset 0px 0px 2rem rgba(255, 77, 0, 0.3),
+                        100px 100px 0px rgba(0,0,0,0.4);
+        }
+
+        /* =========================================
+           2. LO-FI & CRT MANDATORY EFFECTS
+           ========================================= */
+        
+        div.retro-container {
+            width: 95vw; height: 95vh;
+            max-width: 1400px;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            overflow: hidden;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            position: relative;
+            
+            mask-image: linear-gradient(to bottom, #0005 50%, #000 50%);
+            mask-size: 100% 2px;
+            -webkit-mask-image: linear-gradient(to bottom, #0005 50%, #000 50%);
+            -webkit-mask-size: 100% 2px;
+            
+        }
+
+        @keyframes crtAnimation {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 10000%; }
+        }
+
+        .old-crt-monitor {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 100;
+            background-image: linear-gradient(0deg, #0000 10%, #fff1 90%, #0000 100%);
+            background-size: 100% 80%;
+            animation: crtAnimation 100s linear infinite;
+            opacity: 0.12;
+        }
+
+        @keyframes blink-bg {
+            0%, 60% { text-shadow: 0 0 0.5rem var(--primary-orange); color: var(--primary-orange); }
+            70%, 100% { text-shadow: 0 0 1.5rem var(--tertiary-color); color: var(--tertiary-color); }
+        }
+
+        /* =========================================
+           3. UI COMPONENTS (CORNERS & TRIGGERS)
+           ========================================= */
+
+        .corners_wrap {
+            position: relative;
+            padding: 8px 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .corner-svg {
+            position: absolute;
+            width: 10px; height: 10px;
+            image-rendering: pixelated;
+        }
+
+        .tl { top: 0; left: 0; background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'><path d='M 10 0 L 10 1 L 1 1 L 1 10 L 0 10 L 0 0 Z' fill='rgb(255,85,0)'></path></svg>"); }
+        .tr { top: 0; right: 0; background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'><path d='M 10 10 L 9 10 L 9 1 L 0 1 L 0 0 L 10 0 Z' fill='rgb(255,85,0)'></path></svg>"); }
+        .bl { bottom: 0; left: 0; background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'><path d='M 0 0 L 1 0 L 1 9 L 10 9 L 10 10 L 0 10 Z' fill='rgb(255,85,0)'></path></svg>"); }
+        .br { bottom: 0; right: 0; background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'><path d='M 0 10 L 0 9 L 9 9 L 9 0 L 10 0 L 10 10 Z' fill='rgb(255,85,0)'></path></svg>"); }
+
+        .trigger-layer {
+            z-index: 10;
+            width: 100%; height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        .alert {
+            color: var(--primary-red);
+            font-size: 2rem;
+            font-weight: 700;
+
+        }
+        .success{
+            color: var(--primary-green);
+        }
+        /* =========================================
+           4. LAYOUT SECTIONS
+           ========================================= */
+
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 2rem; border-bottom: 1px solid var(--border-color);
+            background: var(--bg-dark); z-index: 10;
+        }
+
+        .name-brand { position: relative; }
+        .name-brand h1 { font-size: 1.8rem; color: var(--text-light); margin: 0;font-weight: 700;  }
+        .name-brand h1 span { color: var(--primary-orange); }
+
+        nav ul { display: flex; gap: 1.5rem; list-style: none; padding: 0; margin: 0; align-items: center; }
+        nav a { text-decoration: none; color: var(--text-grey); font-size: 1.3rem; text-transform: uppercase; font-weight: 900; transition: 0.2s; }
+        nav a:not(.contact-link):hover { color: var(--primary-orange); }
+
+        main {
+            overflow-y: auto; position: relative;
+            padding: 3rem 2rem; z-index: 5;
+            cursor: grab; scroll-behavior: smooth;
+        }
+        main:active { cursor: grabbing; }
+        main::-webkit-scrollbar { width: 0; } 
+
+        section { margin-bottom: 8rem; max-width: 1100px; margin-left: auto; margin-right: auto; }
+
+        h2 {
+            font-size: 2rem; color: var(--text-light); margin-bottom: 2.5rem;
+            display: flex; align-items: center; gap: 1.5rem;
+        }
+        h2::after { content: ""; flex-grow: 1; height: 1px; background: var(--border-color); }
+
+        .social-uplink-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-node {
+            background: var(--dim-orange);
+            border: 1px solid rgba(255, 85, 0, 0.2);
+            padding: 1.2rem;
+            position: relative;
+            text-decoration: none;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .social-node:hover {
+            border-color: var(--primary-orange);
+            background: rgba(255, 85, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .social-node span { font-size: 0.85rem; color: var(--primary-orange); font-weight: bold; }
+        .social-node h4 { margin: 0; color: var(--text-light); font-size: 1rem; }
+
+        .brand-logo-svg {
+            position: absolute;
+            bottom: 8px; right: 8px;
+            width: 35px; height: 35px;
+            opacity: 0.6;
+            fill: var(--primary-red);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-size: 0.95rem; color: var(--primary-orange); margin-bottom: 0.5rem; }
+        .form-group input, .form-group textarea {
+            width: 100%; background: #0a0a0a; border: 1px solid var(--border-color);
+            padding: 1rem; color: var(--text-light); font-family: inherit;
+        }
+        .form-group input:focus { border-color: var(--primary-orange); outline: none; }
+
+        button.btn-industrial {
+            background: var(--primary-orange); color: #000; border: none;
+            padding: 1rem 2.5rem; font-weight: bold; cursor: pointer;
+            text-transform: uppercase; font-family: inherit;
+        }
+
+        footer {
+            border-top:2px solid var(--border-color);
+            padding: 1rem 2rem; display: flex; justify-content: space-between;
+            background: var(--bg-dark); z-index: 10;
+            font-size: 1rem; color: #555;
+            font-weight: 600;
+        }
+        .footer-alert {
+            color: var(--primary-red);
+            font-size: 1.1rem;
+            font-weight: 700;
+
+        }
+
+        @media (max-width: 900px) {
+            .contact-layout { grid-template-columns: 1fr; }
+        }
+
+        /* Specialized Fixed Height for Response Container to stop Layout Shift */
+        .response-container {
+            min-height: 180px; /* Strong Lock on height */
+            display: flex;
+            align-items: flex-start;
+            overflow: hidden;
+        }
+
+        #rotating-quote {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-top: 1rem;
+            line-height: 1.6;
+            display: block;
+            white-space: pre-wrap;
+            width: 100%;
+        }
+        
+
+
+        .stack-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+  
+}
+
+.stack {
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  border-radius: 4px;
+  border: 1px solid;
+  text-transform: uppercase;
+}
+
+/* reuse your success theme */
+.stack.success {
+  color: var(--primary-green);
+  border-color: var(--primary-green);
+  background: rgba(0, 255, 128, 0.255);
+}
+
+
+
+        /* --- Project Grid (Now Stacked) --- */
+        .project-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem; /* Spacing between the two projects */
+        }
+
+        /* --- Project Card Styling --- */
+        .project-card {
+            background: var(--bg-panel); 
+            border: 3px solid var(--border-color); 
+            padding: 0; /* Removing padding from container to let children handle it */
+            text-decoration: none; 
+            color: inherit;
+            display: flex; /* Flexbox for side-by-side layout */
+            flex-direction: row;
+            align-items: stretch;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 350px;
+        }
+
+        .project-card:hover {
+            border-color: var(--text-grey);
+            transform: translateY(-10px);
+        }
+
+        /* --- Text Content Section --- */
+        .project-content {
+            flex: 1; /* Takes up remaining space */
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px dashed var(--border-color); /* Separator line */
+        }
+
+        /* --- 3D Canvas Container --- */
+        .model-canvas {
+            width: 400px; /* Fixed width for the 3D view */
+            background: radial-gradient(circle at center, rgba(255,255,255,0.02) 0%, transparent 70%);
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        /* --- Mobile Responsive Layout --- */
+        @media (max-width: 900px) {
+            .project-card {
+                flex-direction: column-reverse; /* Stack visual on top of text for mobile */
+            }
+            .project-content {
+                border-right: none;
+                border-top: 1px dashed var(--border-color);
+            }
+            .model-canvas {
+                width: 100%;
+                height: 250px;
+            }
+        }
+
+        /* --- Typography within Card --- */
+        .project-code {
+            color: var(--primary-orange);
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-desc {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-grey);
+            line-height: 1.6;
+        }
+
+        .project-desc p {
+            margin-bottom: 1rem;
+        }
+
+        /* --- Tech Stack Tags --- */
+        .stack-container {
+            margin-top: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .stack {
+            font-size: 0.8rem;
+            padding: 0.25rem 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .stack.success {
+            color: var(--primary-green);
+            border-color: rgba(67, 220, 67, 0.3);
+            background: rgba(67, 220, 67, 0.05);
+        }
+
+        /* Grid Background Effect */
+        .bg-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            pointer-events: none;
+        }

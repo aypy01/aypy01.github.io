@@ -1,0 +1,362 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Fira+Code:wght@400;500&family=Inter:wght@400;600&display=swap');
+
+:root {
+    --bg-color: #0f0f0f;
+    --panel-bg: #161616;
+    --text-main: #b0b0b0;
+    --text-muted: #777777;
+    --eva-orange: #FF4D00; /* Core Orange */
+    --eva-orange-dim: rgba(255, 77, 0, 0.3);
+    --accent-green: #00FF80;
+    --border-color: #2a2a2a;
+    --input-bg: #0a0a0a;
+    
+    --font-mono: 'Fira Code', 'Courier New', monospace;
+    --font-sans: 'Inter', 'Segoe UI', Arial, sans-serif;
+    --font-tech: 'Share Tech Mono', monospace; /* Special font for NERV section */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+    width: 260px;
+    background-color: var(--panel-bg);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px;
+    font-family: var(--font-mono);
+    flex-shrink: 0;
+    overflow-y: auto;
+}
+
+
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--eva-orange);
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    border-bottom: 1px solid var(--eva-orange);
+    padding-bottom: 2px;
+    align-items: center;
+}
+
+.nav-links { list-style: none; }
+.nav-links li { margin-bottom: 15px; }
+.nav-links a {
+    color: var(--text-muted);
+    font-size: 1rem;
+    text-decoration: none;
+    transition: 0.2s;
+    padding-bottom: 0px;
+    font-weight: 700;
+}
+.nav-links a:hover { color: var(--eva-orange); padding-left: 20px; }
+
+/* --- CONTENT AREA --- */
+.main-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    background-image: 
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%); /* Subtle global scanline */
+    background-size: 100% 4px;
+}
+
+/* LAYOUT FIX: 
+   Increased max-width to 1200px to prevent congestion.
+   Added width: 90% to ensure it uses space on standard screens.
+*/
+.container {
+    max-width: 1200px; 
+    width: 90%;
+    margin: 0 auto;
+    padding: 60px 40px;
+}
+
+/* Standard Headings */
+.heading-1 {
+    font-family: var(--font-mono);
+    color: #fff;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    font-weight: 1000;
+}
+
+.module-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 50px;
+    margin-bottom: 15px;
+}
+
+.heading-2 {
+    font-family: var(--font-mono);
+    color: var(--eva-orange);
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    margin: 0;
+    font-weight: 700;
+}
+
+/* --- NERV SPECIAL SECTION (WHAT IS NERV?) --- */
+/* This section gets the special "Tech" styling */
+.nerv-about {
+    border: 2px solid var(--eva-orange);
+    padding: 30px;
+    margin-top: 60px;
+    background: rgba(10, 10, 10, 0.8);
+    position: relative;
+    box-shadow: 0 0 15px var(--eva-orange-dim);
+    /* Tech grid background */
+    background-image: 
+        linear-gradient(90deg, rgba(255, 77, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255, 77, 0, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+/* Decorative Corners for NERV section */
+.nerv-about::before,
+.nerv-about::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: var(--eva-orange);
+    transition: all 0.3s ease;
+}
+.nerv-about::before { top: -2px; left: -2px; clip-path: polygon(0 0, 100% 0, 0 100%); }
+.nerv-about::after { bottom: -2px; right: -2px; clip-path: polygon(100% 100%, 0 100%, 100% 0); }
+
+/* NERV Headers */
+.nerv-about-header {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+
+
+.nerv-title {
+    font-family: var(--font-tech);
+    font-size: 1.8rem;
+    color: var(--eva-orange);
+    text-transform: uppercase;
+    margin: 0;
+    text-shadow: 0 0 8px var(--eva-orange-dim);
+    font-weight: 700;
+}
+
+
+
+
+
+.nerv-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 7px;
+}
+
+.nerv-media {
+    margin-top: 30px;
+    border: 1px dashed var(--eva-orange-dim);
+    padding: 5px;
+    background: rgba(0,0,0,0.3);
+}
+
+/* --- STANDARD MODULE BUTTONS --- */
+.module-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.nerv-btn {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--eva-orange);
+    color: var(--eva-orange);
+    background: transparent;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 900;
+}
+
+.nerv-btn:hover {
+    background: var(--eva-orange);
+    color: #151515;
+    box-shadow: 0 0 10px var(--eva-orange-dim);
+}
+
+.nerv-btn.secondary { border-style: dashed; }
+.nerv-btn.colab { border-style: dashed; }
+
+/* --- THEORY & CODE BLOCKS --- */
+/* Updated to be less congested */
+.theory-section {
+    width: 100%; /* Now takes full width of the larger container */
+    background: rgba(255, 77, 0, 0.03);
+    border-left: 3px solid var(--eva-orange);
+    padding: 24px 30px; /* More internal breathing room */
+    margin: 30px 0;
+    line-height: 1.7;
+    color: #d0d0d0;
+    font-size: 1rem;
+    border-bottom: 2px solid var(--eva-orange);
+}
+
+.code-block {
+    width: 100%;
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    padding: 24px;
+    margin: 30px 0;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: #dcdcdc;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: 1.6;
+    border-radius: 4px;
+    /* Optional: Subtle glow for code blocks too */
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5); 
+    border-bottom: 2px solid var#b0b0b0;
+}
+
+/* Syntax Highlighting */
+.com { color: #6A9955; font-style: italic; }
+.kw { color: #569CD6; }
+.str { color: #CE9178; }
+.func { color: #DCDCAA; }
+
+/* Video Wrappers */
+.video-container {
+    margin: 30px 0;
+    border: 3px solid var(--border-color);
+    background: #000;
+    margin: 30px 0;
+  cursor: pointer;
+}
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+.video-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    border: 0;
+}
+
+.video-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+
+.video-wrapper video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Overlay */
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  color: #fff;
+  background: rgba(0,0,0,0.45);
+
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.video-container:hover .video-overlay {
+  opacity: 1;
+}
+
+
+.status-badge {
+    background: var(--eva-orange);
+    color: #000;
+    padding: 2px 10px;
+    font-family: var(--font-mono);
+    font-weight: bold;
+    font-size: 1rem;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+footer {
+        margin-top: auto; /* Pushes the footer to the bottom of the flex container (sidebar) */
+    
+    background: transparent;
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
+    padding-bottom: 0;
+    text-align: left; /* Align text left, consistent with sidebar content */
+    color: #bdbdbd;
+    font-size: 0.85rem; /* Retained font size */
+    line-height: 1.5;
+    
+    /* Ensure it respects sidebar padding */
+    width: 100%;
+    position: relative; /* Remove fixed positioning */
+}
+footer a {
+    color: var(--eva-orange);
+    font-weight: 900;
+    text-decoration: none;
+}

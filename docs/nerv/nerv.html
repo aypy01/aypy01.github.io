@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NERV</title>
+    <link rel="stylesheet" href="static/nerv/styles.css">
+</head>
+
+<body>
+
+    <nav class="sidebar">
+        <div class="logo">NERV</div>
+        <ul class="nav-links">
+            <li><a href="#nerv-content">Introduction</a></li>
+            <li><a href="#titanic">TITANIC </a></li>
+            <li><a href="#iris">IRIS  </a></li>
+            <li><a href="#oculus">OCULUS</a></li>
+            <li><a href="#yapper">YAPPER</a></li>
+            <li><a href="#website">Website</a></li>
+            <li><a href="#result">Result</a></li>
+            <li><a href="#credits">Acknowledgements</a></li>
+            <li><a href="#note">Note</a></li>
+            <li><a href="#author">Author</a></li>
+            <li><a href="#license">License</a></li>
+        </ul>
+        <footer class="sidebar-footer">
+            Built with<br>Django &amp; TensorFlow <br>by <a href="https://aypy01.github.io/" target="_blank" style="color:var(--eva-orange);font-weight:700;">AYPY</a>
+        </footer>
+    </nav>
+
+    
+
+    <main class="main-content">
+        <div class="container">
+            <section id="nerv-content" class="nerv-about-header">
+
+            <div class="status-badge">SYSTEM: ACTIVE</div>
+            <h1 class="heading-1">NERV : Neural Experiments & Real-world Validation</h1>
+            
+
+        <div class="nerv-inner">
+            <!-- Decorative Lines -->
+            <div class="deco-line dl-1"></div>
+            <div class="deco-line dl-2"></div>
+
+            <header class="nerv-about-header">
+                <div class="nerv-top-meta">
+                    <span>SYS.VER.3.0.1</span>
+                    <span class="nerv-status">● ONLINE</span>
+                </div>
+                <h2 class="nerv-title">What is NERV?</h2>
+                <div class="nerv-actions">
+                    <a href="https://github.com/aypy01/nerv" target="_blank" class="nerv-btn primary">
+                        <span class="nerv-btn-icon">></span> Initialize Repo
+                    </a>
+                    
+                </div>
+            </header>
+            
+
+            <div class="nerv-content">
+                <p class="theory-section">
+<strong>NERV</strong> is an applied machine learning project built around a simple shift: moving from default notebook-based learning to real, usable systems.
+
+While learning AI and ML, most projects remain confined to notebooks and static outputs. At the same time, I was learning web development so instead of stopping at trained models, I began integrating them into interactive applications. What originally existed only for personal learning is now structured, documented, and <strong>open-sourced</strong>.
+
+This repository contains four applied programs, each designed to bridge model training with real-world usage. Every module is documented step by step, so learners can follow the same path and arrive at a working result, not just a trained model.
+
+The projects include: <strong>Titanic survival prediction (binary classification via form input)</strong>, <strong>Iris flower classification (multi-class prediction)</strong>, <strong>Oculus (image-based convolutional neural network)</strong>, and <strong>Yapper (natural language processing)</strong>.
+
+If you’re learning machine learning and want to build something visible, interactive, and deployable, NERV is meant to be followed, not just read.
+</p>
+
+
+              
+
+                
+            </div>
+        </div>
+    </section>
+
+            <!-- VIDEO LOG: Fixed Link Format -->
+            <a href="https://youtu.be/gxlgYbGK74w"
+   target="_blank"
+   class="video-link"
+   aria-label="Watch on YouTube">
+
+  <div id="video" class="video-container">
+    <div class="video-wrapper">
+
+      <video 
+        autoplay 
+        loop 
+        muted
+        playsinline
+      >
+        <source src="../../assets\videos\NERV_demo.mp4" type="video/mp4">
+        
+      </video>
+
+      <!-- Overlay caption -->
+      <div class="video-overlay">
+        ▶ Click to watch on YouTube
+      </div>
+
+    </div>
+  </div>
+
+</a>
+
+        <p style="border-bottom: 5px solid var(--eva-orange);"></p>    
+
+            <!-- TITANIC -->
+           <div class="module-header">
+  <div id="titanic" class="heading-2">
+    Titanic Survival Prediction : Binary Classification
+  </div>
+
+  <div class="module-actions">
+    <a href="https://github.com/aypy01/tensorflow/blob/main/module-2.ipynb" class="nerv-btn github">GitHub</a>
+    <a href="https://colab.research.google.com/github/aypy01/tensorflow/blob/main/module-2.ipynb" class="nerv-btn colab">Colab</a>
+  </div>
+</div>
+
+
+<h2>Introduction</h2>        
+<div class="theory-section">
+This section explains the fundamental difference between regression and classification tasks in machine learning. The key distinction lies in the target variable. If the target contains continuous numbers with an infinite range, the problem is a <strong>regression</strong> task, such as predicting house prices, temperature, or stock returns. If the target consists of discrete categories, it is a <strong>classification</strong> problem, like determining whether an email is spam, diagnosing a disease, or identifying flower species. 
+
+Classification can be <strong>binary</strong> (two classes, e.g., yes/no) or <strong>multi-class</strong> (more than two classes, e.g., digits 0–9 or iris species). Inputs (X) are generally numeric after preprocessing, but the key is the target (y): continuous → regression, finite categories → classification. A simple rule: if the question is "How much?" it’s regression; if "Which class?" or "Yes/No?" it’s classification.
+
+In this module, we implement a binary classification model on the Titanic dataset. Using TensorFlow and Keras, we predict whether a passenger survived (0 or 1) based on features like age, sex, and class. You will learn data loading, preprocessing (scaling, one-hot encoding), model building with a sigmoid output for probabilities, and evaluation using accuracy and loss.
+</div>
+
+<h3>Regression VS Classification</h3>
+
+<div class="theory-section">
+                The fundamental distinction in supervised learning lies in the nature of the target variable ($y$). In <strong>Regression</strong>, we predict continuous values think of a sliding scale like house prices or temperature where the possibilities are infinite. 
+                <br><br>
+                In <strong>Classification</strong>, we deal with discrete labels. If the question is "How much?", it's regression. If the question is "Which one?", it's classification. <strong>Binary Classification</strong> limits us to two choices (0 or 1), while <strong>Multi-class</strong> expands this to three or more categories, such as identifying different species of flowers.
+            </div>
+
+<h2>Importing Libraries</h2>
+<div class="code-block">
+<span class="kw">import</span> tensorflow <span class="kw">as</span> tf
+<span class="com"># Check TensorFlow version (optional)</span>
+<span class="com"># tf.__version__</span>
+<span class="kw">import</span> pandas <span class="kw">as</span> pd
+</div>
+
+<h2>Dataset</h2>
+
+<div class="theory-section">
+In this step, the Titanic dataset is loaded for both training and testing. The CSV files contain all features along with the target column <code>survived</code>, which indicates whether a passenger survived (1) or not (0). The target is separated from the features using <code>pop()</code>, so <code>x_train</code> and <code>x_test</code> contain only input features. The <code>fare</code> column is removed from both datasets as it is deemed unnecessary for prediction. This cleaning ensures the model receives only relevant features. Using <code>shape</code> provides the dimensions of the training data, confirming the number of samples and features after preprocessing.
+</div>
+
+<div class="code-block">
+<span class="com"># Load training data</span>
+x_train = pd.read_csv(<span class="str">"https://storage.googleapis.com/tf-datasets/titanic/train.csv"</span>)
+y_train = x_train.pop(<span class="str">"survived"</span>) <span class="com"># target labels</span>
+
+<span class="com"># Load testing data</span>
+x_test = pd.read_csv(<span class="str">"https://storage.googleapis.com/tf-datasets/titanic/eval.csv"</span>)
+y_test = x_test.pop(<span class="str">"survived"</span>)
+
+<span class="com"># Drop 'fare' column from both sets</span>
+x_train.drop([<span class="str">'fare'</span>], axis=<span class="num">1</span>, inplace=<span class="kw">True</span>)
+x_test.drop([<span class="str">'fare'</span>], axis=<span class="num">1</span>, inplace=<span class="kw">True</span>)
+
+x_train.head()
+x_test.head()
+
+<span class="com"># Check the shape of the training data</span>
+x_train.shape
+</div>
+
+<h2>Training VS Testing</h2>
+<div class="theory-section">
+A core principle in machine learning is dividing the dataset into <strong>training</strong> and <strong>testing</strong> sets. The training set teaches the model to learn patterns, relationships, and feature weights. The testing set evaluates how well the model generalizes to unseen data, preventing misleading results from overfitting, where a model memorizes the training data instead of learning meaningful patterns.
+
+In the Titanic dataset, features are either <strong>categorical</strong> (text-based, e.g., sex, embark_town) or <strong>numerical</strong> (numbers, e.g., age, fare). Categorical features must be converted to numerical representations before feeding them into the model for example, encoding "male" as 1 and "female" as 0 so that neural networks can process them effectively.
+</div>
+
+<h2>Preprocessing and Scaling</h2>
+
+<div class="theory-section">
+Proper preprocessing is crucial before training a machine learning model, as raw data is often unclean or in an unsuitable format.
+
+<strong>1. Encoding Categorical Features:</strong> Columns with text values, such as <code>sex</code> ("male"/"female") or <code>class</code> ("First"/"Second"/"Third"), must be converted to numbers. One-Hot Encoding creates a separate binary column for each category. For example, "male" and "female" become <code>sex_male</code> and <code>sex_female</code>, with 1 or 0 depending on the row. Pandas' <code>get_dummies()</code> is commonly used for this.
+
+<strong>2. Scaling Numerical Features:</strong> Numerical columns like <code>age</code> and <code>fare</code> may have vastly different ranges. Standardization via <code>StandardScaler</code> transforms these values to have mean = 0 and standard deviation = 1. This normalization improves training speed and stability, particularly for neural networks and logistic regression models.
+</div>
+
+<h2>Scaling and Encoding</h2>
+
+<h3>X-Train</h3>
+
+<div class="theory-section">
+In this step, preprocessing is applied to both categorical and numerical features to prepare them for model training. Numerical columns such as <code>age</code>, <code>n_siblings_spouses</code>, and <code>parch</code> are standardized using <code>StandardScaler</code> to ensure a mean of 0 and standard deviation of 1, preventing features with larger ranges from dominating model learning. Categorical columns like <code>sex</code>, <code>class</code>, <code>deck</code>, <code>embark_town</code>, and <code>alone</code> are converted into one-hot encoded vectors using <code>pandas.get_dummies()</code>, creating binary columns representing each category. The result, <code>x_train_encoded</code>, combines both scaled numerical and encoded categorical features, forming the final training input for the model.
+</div>
+
+<div class="code-block">
+<span class="kw">from</span> sklearn.preprocessing <span class="kw">import</span> StandardScaler
+<span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+<span class="com"># Define categorical and numerical columns</span>
+category_col = [<span class="str">'sex'</span>, <span class="str">'class'</span>, <span class="str">'deck'</span>, <span class="str">'embark_town'</span>, <span class="str">'alone'</span>]
+numeric_col = [<span class="str">'age'</span>, <span class="str">'n_siblings_spouses'</span>, <span class="str">'parch'</span>]
+
+<span class="com"># Scale numerical columns</span>
+x_train[numeric_col] = StandardScaler().fit_transform(x_train[numeric_col])
+
+<span class="com"># One-hot encode categorical columns and combine with scaled numerical features</span>
+x_train_encoded = pd.get_dummies(x_train[category_col + numeric_col])
+
+x_train_encoded.head(3)
+</div>
+
+
+<h3>X-Test</h3>
+
+<div class="theory-section">
+The test data must undergo the same preprocessing steps as the training data to ensure consistency. Numerical columns in <code>x_test</code> are standardized using <code>StandardScaler</code>, and categorical columns are converted into one-hot encoded vectors with <code>pandas.get_dummies()</code>. The resulting <code>x_test_encoded</code> has the same structure and feature representation as <code>x_train_encoded</code>, enabling the trained model to evaluate unseen data accurately without discrepancies caused by differing feature formats.
+</div>
+
+<div class="code-block">
+<span class="com"># Preprocess test data similarly</span>
+x_test[numeric_col] = StandardScaler().fit_transform(x_test[numeric_col])  <span class="com"># Scale numerical columns</span>
+x_test_encoded = pd.get_dummies(x_test[category_col + numeric_col])  <span class="com"># One-hot encode categorical columns</span>
+
+x_test_encoded.head()
+</div>
+
+
+<div class="theory-section">
+To ensure the test set matches the structure of the training set, <code>reindex()</code> is applied to <code>x_test_encoded</code>. This aligns the test columns with the training columns, adding any missing columns with a default value of 0. This step is necessary because one-hot encoding may create categories in the training set that are absent in the test set, or vice versa. By reindexing, we prevent unseen labels or mismatched feature dimensions from causing errors during model evaluation.
+</div>
+
+<div class="code-block">
+<span class="com"># Align test set columns with training set to prevent unseen labels</span>
+x_test_encoded = x_test_encoded.reindex(columns=x_train_encoded.columns, fill_value=<span class="num">0</span>)
+</div>
+
+
+<h2>Model Binary Classification</h2>
+
+<div class="theory-section">
+A binary classification neural network is built using TensorFlow's Keras Sequential API. The input layer has neurons equal to the number of features in <code>x_train_encoded</code>, accommodating both scaled numerical and one-hot encoded categorical data. Three hidden layers with 128, 64, and 16 neurons respectively use the ReLU activation function to introduce non-linearity and enable learning complex patterns. The output layer has a single neuron with a sigmoid activation, producing a probability between 0 and 1 for predicting survival on the Titanic dataset.
+</div>
+
+<div class="code-block">
+<span class="com"># Build binary classification model</span>
+model = tf.keras.Sequential([
+    tf.keras.layers.Dense(<span class="num">128</span>, activation=<span class="str">'relu'</span>, input_shape=(x_train_encoded.shape[1],)),  <span class="com"># Input layer</span>
+    tf.keras.layers.Dense(<span class="num">64</span>, activation=<span class="str">'relu'</span>),  <span class="com"># Hidden layer 1</span>
+    tf.keras.layers.Dense(<span class="num">16</span>, activation=<span class="str">'relu'</span>),  <span class="com"># Hidden layer 2</span>
+    tf.keras.layers.Dense(<span class="num">1</span>, activation=<span class="str">'sigmoid'</span>)  <span class="com"># Output layer for binary classification</span>
+])
+</div>
+
+
+<h2>Compile</h2>
+
+<div class="theory-section">
+The model is compiled using the Adam optimizer, which adapts learning rates for each parameter during training. The loss function is <code>binary_crossentropy</code>, suitable for binary classification tasks where the output is either 0 or 1. Accuracy is specified as the evaluation metric to track the proportion of correctly predicted labels during training and validation. This configuration ensures the network learns efficiently while providing meaningful performance feedback.
+</div>
+
+<div class="code-block">
+<span class="com"># Compile the model</span>
+model.compile(
+    optimizer=<span class="str">'Adam'</span>,
+    loss=<span class="str">'binary_crossentropy'</span>,  <span class="com"># Loss function for binary classification</span>
+    metrics=[<span class="str">'accuracy'</span>]
+)
+</div>
+
+
+<h2>Training</h2>
+
+<div class="theory-section">
+The model is trained using the <code>fit()</code> method with 20 epochs and a batch size of 32. A validation split of 20% is used to monitor the model's performance on unseen data during training, helping to detect overfitting. During each epoch, the network updates its weights using backpropagation to minimize the binary cross-entropy loss while tracking accuracy on both training and validation sets.
+</div>
+
+<div class="code-block">
+<span class="com"># Train the model</span>
+model.fit(
+    x=x_train_encoded,
+    y=y_train,
+    epochs=<span class="num">20</span>,
+    batch_size=<span class="num">32</span>,
+    validation_split=<span class="num">0.2</span>
+)
+</div>
+
+<div class="theory-section">
+By the end of training (Epoch 20), the model achieves a training accuracy of approximately 86.8% and a loss of 0.3183. The validation accuracy is around 87.3% with a loss of 0.3123. This indicates the model has learned the patterns in the training data well while generalizing effectively to unseen validation data, with minimal overfitting.
+</div>
+
+<div class="code-block">Epoch 19/20
+16/16 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - accuracy: 0.8404 - loss: 0.3807 - val_accuracy: 0.8651 - val_loss: 0.3130
+Epoch 20/20
+16/16 ━━━━━━━━━━━━━━━━━━━━ 0s 8ms/step - accuracy: 0.8675 - loss: 0.3183 - val_accuracy: 0.8730 - val_loss: 0.3123
+<keras.src.callbacks.history.History at 0x7e7c8c1fbc80></div>
+
+
+<h2>Evaluate</h2>
+
+<div class="theory-section">
+After training, the model is evaluated on the unseen test set to measure its generalization performance. The <code>evaluate()</code> method computes the binary cross-entropy loss and accuracy on <code>x_test_encoded</code> and <code>y_test</code>. Using verbose=2 provides detailed step-wise feedback during evaluation. This step ensures the model's reported performance reflects real-world predictions on data it has never encountered.
+</div>
+
+<div class="code-block">
+<span class="com"># Evaluate the model on unseen test data</span>
+loss, accuracy = model.evaluate(x_test_encoded, y_test, verbose=<span class="num">2</span>)
+</div>
+
+<div class="theory-section">
+The evaluation on the test set shows an accuracy of approximately 82.2% with a loss of 0.4334. This confirms that the model generalizes well to unseen data, maintaining strong predictive performance on binary classification of Titanic survival while avoiding significant overfitting.
+</div>
+
+<div class="code-block">9/9 - 0s - 7ms/step - accuracy: 0.8220 - loss: 0.4334</div>
+
+<h2>Prediction</h2>
+
+<div class="theory-section">
+After predicting probabilities on the test set using the sigmoid output, a threshold of 0.5 is applied to classify outcomes into 0 or 1. Values above 0.5 are considered positive (survived), and values below are negative (not survived). This converts continuous probabilities into discrete class predictions, allowing comparison with the true labels. Some misclassifications may occur, reflecting that the model's accuracy, while strong, is not perfect.
+</div>
+
+<div class="code-block">
+pred = model.predict(x_test_encoded)
+
+<span class="com"># Convert probabilities to binary class predictions using threshold 0.5</span>
+pred_class = (pred > <span class="num">0.5</span>).astype(<span class="str">'int32'</span>)
+
+<span class="com"># Display first 5 raw probabilities and predicted classes</span>
+print(pred[:5])
+print()
+print(pred_class[:5])
+</div>
+
+<div class="theory-section">
+The first five predictions show the raw probabilities output by the sigmoid layer, ranging between 0 and 1. Applying a threshold of 0.5 converts these into binary classes: values below 0.5 are classified as 0 (not survived), and values above 0.5 as 1 (survived). For example, a probability of 0.814 becomes 1, indicating survival, while 0.148 becomes 0, indicating non-survival. This thresholding allows the model to make concrete survival predictions from continuous probabilities.
+</div>
+
+<div class="code-block">9/9 ━━━━━━━━━━━━━━━━━━━━ 0s 9ms/step
+[[0.14762254]
+ [0.317996  ]
+ [0.81370956]
+ [0.8283162 ]
+ [0.13781232]]
+
+[[0]
+ [0]
+ [1]
+ [1]
+ [0]]</div>
+
+
+<h2>Saving Titanic Model</h2>
+            
+<div class="theory-section">
+The trained model is saved using <code>model.save()</code> in the Keras format. This preserves the model architecture, learned weights, and optimizer state, allowing it to be reloaded later for inference or further training without retraining from scratch. Here, the model is saved as <code>titanic_survival.keras</code>.
+</div>
+
+<div class="code-block">
+<span class="com"># Save the trained model</span>
+model.save(<span class="str">'titanic_survival.keras'</span>)
+</div>
+
+
+<h2>Summary Titanic</h2>
+
+<div class="theory-section">
+The Titanic binary classification project uses TensorFlow’s dataset, pre-split into training and testing sets. Missing values were handled, and the 'fare' column was removed as it was not predictive. Numerical features were scaled with <code>StandardScaler</code> and categorical features were one-hot encoded using <code>pd.get_dummies()</code>, producing <code>x_train_encoded</code>. The model consists of input neurons equal to the number of features, multiple hidden dense layers, and an output layer with a single sigmoid neuron for binary prediction. Compiled with Adam optimizer and binary cross-entropy loss, the model was trained with a 20% validation split. Evaluation on the test set yielded ~82.2% accuracy. The model is saved as 'titanic_survival.keras'.
+</div>
+
+
+
+
+
+
+             <!-- IRIS -->
+           <div class="module-header">
+  <div id="iris" class="heading-2">
+    IRIS: Multi-class Classification
+  </div>
+
+  <div class="module-actions">
+    <a href="https://github.com/aypy01/tensorflow/blob/main/module-2.ipynb" class="nerv-btn github">GitHub</a>
+    <a href="https://colab.research.google.com/github/aypy01/tensorflow/blob/main/module-2.ipynb" class="nerv-btn colab">Colab</a>
+  </div>
+</div>
+
+<h2>Introduction</h2>
+
+            <div class="theory-section">
+This section marks the beginning of the Iris classification pipeline and focuses on structuring raw data into a form suitable for supervised learning. Unlike some high-level APIs that abstract dataset handling, this approach exposes the fundamentals of how tabular data is prepared for machine learning. The Iris dataset contains numerical measurements of flowers=sepal length, sepal width, petal length, and petal width along with a categorical target representing the species.
+
+Since the dataset files do not include column headers in a directly usable format, column names are manually defined to establish clear semantic meaning for each feature. This step is crucial for readability, debugging, and later preprocessing. Similarly, defining the species labels explicitly helps clarify the classification targets and reinforces that this is a multi-class problem with three distinct categories.
+
+The dataset is then loaded using pandas, converting raw CSV files into structured DataFrames. The target column, representing the species, is separated from the feature set to maintain a clean input–output split, which is a core principle in supervised learning. Inspecting the data using methods like <code>head()</code>, <code>shape</code>, and <code>describe()</code> provides early insight into feature distributions, scale, and potential anomalies. This exploratory step ensures the data is well-understood before any model architecture or training decisions are made.
+</div>
+
+<h2>Importing Libraries</h2>
+<div class="code-block">
+<span class="com"># Importing libraries</span>
+<span class="com"># Flower dataset having name class and its length and width specifications</span>
+
+<span class="kw">import</span> tensorflow <span class="kw">as</span> tf
+<span class="kw">import</span> pandas <span class="kw">as</span> pd
+</div>
+
+<h2>Dataset</h2>
+
+<div class="code-block">
+<span class="com"># As the dataset is not arranged in this manner we have to make the col manually</span>
+col_name = [<span class="str">'SepalLength'</span>, <span class="str">'SepalWidth'</span>, <span class="str">'PetalLength'</span>, <span class="str">'PetalWidth'</span>, <span class="str">'Species'</span>] <span class="com"># User made labels</span>
+species_name = [<span class="str">'Setosa'</span>, <span class="str">'Versicolor'</span>, <span class="str">'Virginica'</span>] <span class="com"># Usermade Targets</span>
+
+x_train = pd.read_csv(
+    <span class="str">"https://storage.googleapis.com/download.tensorflow.org/data/iris_training.csv"</span>,
+    names=col_name,
+    header=0
+) <span class="com"># Reading and making a representation in row and column</span>
+
+y_train = x_train.pop(<span class="str">'Species'</span>)
+
+x_train.head()
+
+<span class="com"># Creating the target Species</span>
+x_test = pd.read_csv(
+    <span class="str">"https://storage.googleapis.com/download.tensorflow.org/data/iris_test.csv"</span>,
+    names=col_name,
+    header=0
+)
+y_test = x_test.pop(<span class="str">'Species'</span>)
+
+x_train.head() <span class="com">## see the target is removed from training set now</span>
+
+<span class="com"># Shape</span>
+x_train.shape
+
+<span class="com"># describe</span>
+x_train.describe()
+</div>
+
+<h2>Normalization</h2>
+<div class="theory-section">
+At this stage, feature scaling is introduced to ensure that all numerical inputs contribute proportionally during model training. The Iris dataset consists entirely of continuous numerical measurements, making normalization a necessary preprocessing step. Without scaling, features with larger numeric ranges such as petal length could dominate the learning process and bias the model’s weight updates.
+
+Instead of relying on external preprocessing tools like scikit-learn’s StandardScaler, TensorFlow’s built-in <strong>Normalization layer</strong> is used. This approach keeps preprocessing tightly integrated with the model pipeline and allows the same transformations to be consistently applied during both training and inference. The normalization layer works by learning the mean and variance of each feature and then scaling inputs to a standardized range during forward passes.
+
+The <code>axis=-1</code> configuration specifies that normalization should be applied feature-wise rather than across samples. This means each column (feature) is independently normalized, which is the correct behavior for tabular data. The <code>adapt()</code> step is critical, it computes the required statistics directly from the training data and locks them into the layer.
+
+By performing normalization at this point, the model receives well-conditioned inputs, leading to faster convergence, more stable gradients, and improved overall performance during training.
+</div>
+
+<div class="code-block">
+<span class="kw">import</span> numpy <span class="kw">as</span> np <span class="com"># Normalization</span>
+
+<span class="com"># As everything is numerical value in the dataset we will only do scaling or Normalization</span>
+<span class="com"># Its like Standard Scaler kinda preprocessing</span>
+<span class="com"># from tensorflow.keras import layers</span>
+
+<span class="com"># Normalizer Layer = Scaler without Standard scaler of scikitlearn, its just from tensorflow</span>
+normalizer = tf.keras.layers.Normalization(axis=-1) <span class="com"># axis=-1 means “normalize along the last axis,” i.e., feature-wise, not sample-wise.</span>
+
+normalizer.adapt(np.array(x_train))
+</div>
+
+<h2>Model</h2>
+<div class="theory-section">
+This section defines the neural network architecture used for multi-class classification on the Iris dataset. At a structural level, the model design for regression and classification is largely similar and both rely on stacked dense layers to learn hierarchical representations from input features. The key distinction lies in the output layer, which determines how predictions are interpreted.
+
+The model is built using TensorFlow’s Sequential API, making the flow of data explicit and easy to follow. The first component is the normalization layer, which acts as the effective input layer. Because this layer has already been adapted to the training data, there is no need to manually specify an input shape. This ensures that all incoming feature values are scaled consistently before reaching the learnable layers.
+
+The hidden layers use ReLU activation functions, allowing the network to model non-linear relationships between flower measurements and species classes. Gradually reducing the number of neurons across layers helps the model compress information and focus on the most discriminative patterns.
+
+The final layer contains three neurons with a softmax activation, corresponding directly to the three Iris species. Softmax converts raw scores into a probability distribution, ensuring that the model outputs a clear class likelihood for each species. This configuration is what transforms a generic neural network into a proper multi-class classifier.
+</div>
+<div class="code-block">
+<span class="kw">from</span> tensorflow.keras <span class="kw">import</span> layers
+
+<span class="com"># Model</span>
+<span class="com"># Architecture for regression and classification is the same</span>
+model = tf.keras.Sequential([
+    normalizer, <span class="com"># this is input neuron, not need the input_shape(x_train), the adapt function does that already</span>
+    layers.Dense(64, activation=<span class="str">'relu'</span>), <span class="com"># Hidden Layer 1</span>
+    layers.Dense(32, activation=<span class="str">'relu'</span>), <span class="com"># Hidden Layer 2</span>
+    layers.Dense(16, activation=<span class="str">'relu'</span>), <span class="com"># Hidden Layer 3</span>
+    layers.Dense(3, activation=<span class="str">'softmax'</span>) <span class="com"># This is where the classification is diff from regression, Output layer is classifying in classes not like regression</span>
+])
+</div>
+
+<h2>Compile</h2>
+
+<div class="theory-section">
+This step finalizes the model configuration by defining how the network will learn from data during training. Compiling a model in TensorFlow binds together three critical components: the optimization strategy, the loss function, and the evaluation metrics. Without this step, the model has a structure but no learning behavior.
+
+The <strong>Adam optimizer</strong> is chosen for training due to its adaptive learning rate and efficient convergence on a wide range of problems. It combines the benefits of momentum and adaptive gradient methods, making it a reliable default choice for deep learning tasks involving tabular data.
+
+For the loss function, <strong>sparse categorical crossentropy</strong> is used, which is specifically designed for multi-class classification problems where target labels are provided as integers rather than one-hot encoded vectors. This aligns perfectly with the Iris dataset, where each flower belongs to exactly one of three species represented by numeric class labels.
+
+Accuracy is selected as the evaluation metric to track how often the model predicts the correct class during training and validation. While accuracy alone does not capture every nuance of model performance, it provides a clear and intuitive signal for early experimentation. With the optimizer, loss, and metrics defined, the model is now ready to be trained on the normalized Iris dataset.
+</div>
+<div class="code-block">
+<span class="com"># Model Compile</span>
+model.compile(
+    optimizer=<span class="str">'adam'</span>,
+    loss=<span class="str">'sparse_categorical_crossentropy'</span>, <span class="com"># good for multiple classification</span>
+    metrics=[<span class="str">'accuracy'</span>] <span class="com"># Defining the weight priority</span>
+)
+</div>
+
+<h2>Training</h2>
+<div class="theory-section">
+This phase represents the actual learning process, where the compiled model is trained on the Iris dataset and begins adjusting its internal weights to minimize classification error. During training, the model repeatedly processes batches of input features and corresponding labels, compares its predictions against the true species, and updates parameters using backpropagation guided by the chosen loss function.
+
+The training is configured to run for a fixed number of epochs, meaning the model will see the entire training dataset multiple times. A validation split is introduced so that a portion of the training data is held out and used only for evaluation during training. This provides an early signal of how well the model generalizes, helping to detect overfitting without touching the test set. Batch size controls how many samples are processed before each weight update, balancing training stability and computational efficiency.
+</div>
+
+<div class="code-block">
+model.fit(x_train, y_train, epochs=20, validation_split=0.2, batch_size=32, verbose=1)
+</div>
+
+<h3>Output</h3>
+<div class="theory-section">
+Verbose output is enabled to expose per-epoch metrics, making the learning dynamics transparent. The reported results from the final epoch show strong performance: training accuracy steadily improves while validation accuracy remains high, indicating that the model is learning meaningful patterns rather than memorizing the data. A validation accuracy close to 96% demonstrates that even a relatively simple dense network can effectively separate Iris species when preprocessing and architecture choices are well-aligned.
+</div>
+
+<div class="code-block">
+Epoch 20/20
+3/3 ━━━━━━━━━━━━━━━━━━━━ 0s 38ms/step - accuracy: 0.8424 - loss: 0.4489 - val_accuracy: 0.9583 - val_loss: 0.2856
+&lt;keras.src.callbacks.history.History at 0x7e7c862c65d0&gt;
+</div>
+
+<h2>Evaluate</h2>
+<div class="theory-section">
+This step evaluates the trained Iris classification model on completely unseen test data, providing an unbiased measure of its real-world performance. Unlike validation metrics observed during training, test evaluation reflects how well the model generalizes beyond the data it has already learned from. This distinction is critical high training or validation accuracy alone does not guarantee a reliable model.
+
+The evaluation process computes the same loss function and accuracy metric defined during compilation. Accuracy here represents the proportion of test samples for which the model correctly predicts the flower species, while loss quantifies the confidence and correctness of those predictions. A lower loss indicates that the predicted probability distributions are closer to the true labels, even when predictions are incorrect.
+</div>
+<div class="code-block">
+    <span class="com"># Evaluate the model on the test data</span>
+<span class="com"># for this the accuracy should be high</span>
+loss, accuracy = model.evaluate(x_test, y_test, verbose=1)
+print(<span class="str">f'Accuracy= {accuracy:.03f}'</span>)
+print(<span class="str">f'Loss={loss:.03f}'</span>)
+</div>
+
+<h2>Accuracy</h2>
+<div class="theory-section">
+The observed accuracy of approximately 83.3% shows that the model performs reasonably well on unseen data, though it does not perfectly match the high validation accuracy seen during training. This gap is expected in small datasets like Iris, where slight distribution differences between training and test sets can have a noticeable impact. Importantly, this result confirms that the model has learned meaningful feature–class relationships rather than memorizing the training data. At this stage, further improvements would come from architectural tuning, regularization, or cross-validation rather than simply increasing training epochs.
+</div>
+
+<div class="code-block">
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 48ms/step - accuracy: 0.8333 - loss: 0.4886
+Accuracy= 0.833
+Loss=0.489
+</div>
+
+<h2>Predict</h2>
+<div class="theory-section">
+This final step demonstrates how the trained Iris model is used to make actual predictions and interpret its outputs. When the model processes test samples through the <code>predict()</code> method, it does not return class labels directly. Instead, because the output layer uses a <strong>softmax activation</strong>, the model produces a probability distribution across all three classes for each input sample.
+
+In multi-class classification problems, converting probabilities to class labels requires a different approach than binary classification. A simple type conversion or thresholding method is not applicable here. Instead, the class with the highest predicted probability is selected as the final prediction. This is achieved using <code>argmax</code>, which returns the index of the maximum value in the probability vector. That index corresponds directly to the predicted class label.
+
+By inspecting predictions at specific indices, the model’s behavior can be verified against known test labels. Printing individual predictions rather than evaluating the entire dataset helps build intuition around how softmax outputs map to discrete classes. </div> 
+
+
+
+<div class="code-block">
+<span class="com"># Model.Predict</span>
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+prediction = model.predict(x_test)
+
+<span class="com"># can't use astype coz its not binary but tertiary classification and used a softmax activation as output</span>
+print(tf.argmax(prediction[1]).numpy()) <span class="com"># at index 1 its predicting 2; correct</span>
+<span class="com"># print(prediction[1])</span>
+
+print(tf.argmax(prediction[2]).numpy()) <span class="com"># at index 1 its predicting 0; correct</span>
+<span class="com"># print(prediction[2])</span>
+</div>
+
+<div class="theory-section">The shown results confirm correct predictions for the selected samples, indicating that the model has successfully learned to distinguish between Iris species. This step closes the full workflow-from data preparation and training to evaluation and real inference.
+</div>
+
+<div class="code-block">
+1/1 ━━━━━━━━━━━━━━━━━━━━ 0s 37ms/step
+2
+0
+</div>
+
+<h2>Saving IRIS Model</h2>
+
+<div class="code-block">
+<span class="com"># Saving the model</span>
+model.save(<span class="str">"iris_species.keras"</span>)
+</div>
+
+<h2>Summary IRIS</h2>
+<div class="theory-section">
+This closing section finalizes the Iris multiclass classification project by saving the trained model and summarizing the complete learning pipeline. Persisting the model after training is essential, it allows the trained network to be reused for inference, evaluation, or deployment without repeating the training process. TensorFlow’s native <code>.keras</code> format stores both the architecture and learned parameters, ensuring consistency when the model is loaded later.
+
+The Iris problem is treated as a supervised <strong>multiclass classification</strong> task with three distinct flower species. The dataset is already split into training and test sets, reducing the risk of data leakage. Each sample consists of four numerical features describing flower morphology, while the target label represents the species class. Targets are separated cleanly from input features before any preprocessing or training steps.
+
+Preprocessing is handled entirely within TensorFlow using a normalization layer, which learns feature-wise statistics directly from the training data. This ensures stable gradients and faster convergence during training. The model architecture follows a standard dense neural network pattern, with a softmax-activated output layer producing class probabilities. Using the Adam optimizer and sparse categorical crossentropy aligns perfectly with integer-encoded class labels. With an achieved accuracy of approximately <strong>83.3%</strong>, the model demonstrates solid generalization given the small dataset size and completes a clean, end-to-end multiclass workflow.
+</div>
+
+
+ <!-- OCULUS -->
+           <div class="module-header">
+  <div id="oculus" class="heading-2">
+    OCULUS : Convolutional Neural Networks (CNN)
+  </div>
+
+  <div class="module-actions">
+    <a href="https://github.com/aypy01/tensorflow/blob/main/module-3.ipynb" class="nerv-btn github">GitHub</a>
+    <a href="https://colab.research.google.com/github/aypy01/tensorflow/blob/main/module-3.ipynb" class="nerv-btn colab">Colab</a>
+  </div>
+</div>
+
+<h2>Introduction</h2>
+
+<div class="theory-section">
+Convolutional Neural Networks (CNNs) are a specialized class of neural networks designed to process visual data such as images. Unlike fully connected networks, CNNs preserve spatial structure and exploit local patterns, making them highly effective for tasks like image classification. A CNN processes data in the form of <strong>Height × Width × Channels</strong>, where channels represent color information (RGB images have three channels, grayscale has one). Raw pixel values typically range from 0 to 255 and are commonly normalized to improve training stability.
+
+At the core of a CNN are <strong>filters (kernels)</strong>, which are small learnable matrices such as 3×3 or 5×5. These filters slide across the input image and perform convolution operations dot products between the filter and local image patches to extract low-level features like edges, textures, and simple patterns. As layers deepen, the network learns increasingly abstract representations.
+
+Stride controls how far a filter moves at each step, trading resolution for speed, while padding determines whether the spatial dimensions shrink or remain constant. Pooling layers, such as max pooling, downsample feature maps to reduce dimensionality and improve generalization. Finally, extracted feature maps are flattened and passed through fully connected layers, ending with a softmax output layer that produces class probabilities. This structured hierarchy is what makes CNNs powerful for datasets like CIFAR-10.
+</div>
+
+<div class="code-block">
+<span class="kw">import</span> tensorflow <span class="kw">as</span> tf
+<span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+
+<span class="kw">from</span> tensorflow.keras <span class="kw">import</span> datasets
+</div>
+
+<h2>Dataset</h2>
+<div class="theory-section">
+Before training a CNN on the CIFAR-10 dataset, it is important to understand what the target labels actually represent. CIFAR-10 is a standard image classification dataset containing 10 distinct object categories, and each image is associated with a numeric label internally. However, these numeric values have no meaning on their own unless they are mapped to their corresponding class names.
+
+Using TensorFlow Datasets provides a clean and reliable way to inspect dataset metadata. By loading the dataset with the <code>with_info</code> flag enabled, additional descriptive information becomes available, including feature definitions and label mappings. Accessing the label feature reveals the human-readable class names associated with each integer label used during training and evaluation.
+
+This step is especially useful when interpreting model predictions later. When a CNN outputs a class index, these label names allow that index to be translated into a meaningful category such as “airplane” or “dog.” Verifying label order early prevents confusion and mistakes, particularly when visualizing predictions or calculating class-specific metrics. Establishing this label mapping upfront ensures that all subsequent training, evaluation, and inference steps remain consistent and interpretable throughout the CIFAR-10 workflow.
+</div>
+
+<div class="code-block">
+<span class="com"># To see the labels exist in target / labels</span>
+<span class="kw">import</span> tensorflow_datasets <span class="kw">as</span> tfds
+
+ds, info = tfds.load(<span class="str">"cifar10"</span>, with_info=<span class="kw">True</span>)
+print(info.features[<span class="str">"label"</span>].names)
+
+<span class="com"># Output</span>
+[<span class="str">'airplane'</span>, <span class="str">'automobile'</span>, <span class="str">'bird'</span>, <span class="str">'cat'</span>, <span class="str">'deer'</span>, <span class="str">'dog'</span>, <span class="str">'frog'</span>, <span class="str">'horse'</span>, <span class="str">'ship'</span>, <span class="str">'truck'</span>]
+</div>
+
+<div class="theory-section">
+After identifying the official label names from the CIFAR-10 dataset, they are manually defined for interpretability and visualization purposes. These class names are not required for training or evaluation, since the model operates purely on numeric labels. However, they become extremely useful when plotting images, inspecting predictions, or explaining results in a human-readable way. Mapping numeric labels to semantic class names helps bridge the gap between raw model outputs and visual understanding.
+
+CIFAR-10 is loaded using TensorFlow’s built-in Keras datasets API, which returns the data in a standardized tuple format. This structure is consistent across Keras datasets and separates training and test splits automatically. The input data consists of 50,000 training images and 10,000 test images, each represented as a 32×32 RGB image. This results in a four-dimensional input tensor where each sample preserves spatial and channel information required by convolutional layers.
+
+The target labels are provided as integers ranging from 0 to 9, each corresponding to one of the ten object categories. Keeping labels in this integer-encoded form is intentional, as it aligns with sparse categorical loss functions used later during training. At this point, the dataset is fully loaded and structured, making it ready for preprocessing, normalization, and convolutional model construction.
+</div>
+
+<div class="code-block">
+<span class="com"># From above after checking the labels making it manual header</span>
+<span class="com"># P.S this class names are not necessary for program while only for representation</span>
+class_name = [
+    <span class="str">'airplane'</span>, <span class="str">'automobile'</span>, <span class="str">'bird'</span>, <span class="str">'cat'</span>, <span class="str">'deer'</span>,
+    <span class="str">'dog'</span>, <span class="str">'frog'</span>, <span class="str">'horse'</span>, <span class="str">'ship'</span>, <span class="str">'truck'</span>
+] <span class="com"># 10 labels which gonna be used in plotting the data</span>
+
+<span class="com"># from dataset of tensorflow</span>
+<span class="com"># its in tuple coz its tensorflow dataset, every KERAS library dataset returns in tuple just like this format</span>
+(x_train, y_train), (x_test, y_test) = datasets.cifar10.load_data()
+
+x_train.shape <span class="com"># X train has 50000 images each have 32x32 pixel image and color</span>
+y_train.shape <span class="com"># Y train are labels between 0–9 (10 classes) in one column</span>
+
+<span class="com"># Each label is a number between 0 and 9 (CIFAR-10 has 10 classes)</span>
+</div>
+
+
+<h2>Normalization</h2>
+
+<div class="theory-section">
+This step applies a standard and essential preprocessing technique for image-based deep learning models: pixel normalization. Raw image data is typically stored using 8-bit integers, where pixel values range from 0 to 255. Feeding these unscaled values directly into a neural network can slow down training and lead to unstable gradient updates, especially when using gradient-based optimizers.
+
+Min–Max normalization is performed by dividing every pixel value by 255, the maximum possible intensity for an 8-bit image. This transforms the data into floating-point values within the range [0, 1]. Normalizing inputs in this way ensures that all features operate on a similar scale, which improves numerical stability and helps the model converge faster during training.
+
+For convolutional neural networks, normalized inputs also make learned filters more interpretable and consistent across channels. Since CIFAR-10 images are small but color-rich, maintaining relative intensity information while scaling the range is crucial. This preprocessing step does not alter the structure of the dat each image remains a 32×32 RGB tensor-but it significantly improves learning efficiency. Applying the same normalization to both training and test sets ensures that the model encounters consistent data distributions during training and evaluation.
+</div>
+
+<div class="code-block">
+<span class="com"># This is the standard preprocessing step for image datasets in TensorFlow/Keras.</span>
+<span class="com"># Normalization = process of scaling features to a fixed range (0–1 or -1–1)</span>
+<span class="com"># Here: we are doing Min-Max Normalization → divide by 255 (max pixel value)</span>
+<span class="com"># Result: all pixel values fall in [0,1]</span>
+
+x_train, x_test = x_train / <span class="num">255.0</span>, x_test / <span class="num">255.0</span>
+
+<span class="com"># Converted 0-255 range to float 0-1</span>
+</div>
+
+<h2>CNN Model</h2>
+<div class="theory-section">
+This section defines the core Convolutional Neural Network architecture used for image classification on the CIFAR-10 dataset. The model follows a structured progression from low-level feature extraction to high-level classification, which is the fundamental design principle behind CNNs. The input layer expects images of shape 32×32×3, matching CIFAR-10’s RGB image format.
+
+The initial convolution layers apply multiple 3×3 filters to the input images. Early layers learn simple visual patterns such as edges and color transitions, while deeper convolution layers capture more complex textures and object parts. Stacking convolution layers before pooling allows the network to extract richer features while preserving spatial detail. Max pooling layers are then used to downsample the feature maps, reducing spatial dimensions and computational cost while improving generalization.
+
+After feature extraction, the flattening step converts the multi-dimensional feature maps into a one-dimensional vector. This marks the transition from convolutional processing to a traditional fully connected neural network. Dense layers then learn global combinations of the extracted features, enabling the model to associate visual patterns with specific object classes.
+
+The final dense layer uses a softmax activation with ten output units, producing a probability distribution over the ten CIFAR-10 classes. Calling <code>model.summary()</code> provides a layer-by-layer breakdown of output shapes and parameter counts, helping verify architectural correctness and understand how data flows through the network.
+</div>
+
+<div class="code-block">
+<span class="com"># My way if not works be changed from source</span>
+<span class="kw">from</span> tensorflow.keras <span class="kw">import</span> layers, models
+
+model = models.Sequential([
+    <span class="com"># Making the matrix of 32 and then selecting 3x3 filter image matrix of 32x32x3 (3 = RGB)</span>
+    layers.Conv2D(<span class="num">32</span>, (<span class="num">3</span>, <span class="num">3</span>), activation=<span class="str">'relu'</span>, input_shape=(<span class="num">32</span>, <span class="num">32</span>, <span class="num">3</span>)),
+    layers.Conv2D(<span class="num">64</span>, (<span class="num">3</span>, <span class="num">3</span>), activation=<span class="str">'relu'</span>),
+
+    <span class="com"># Now the Pooling; here max pooling we took</span>
+    layers.MaxPooling2D((<span class="num">2</span>, <span class="num">2</span>)),
+
+    layers.Conv2D(<span class="num">64</span>, (<span class="num">3</span>, <span class="num">3</span>), activation=<span class="str">'relu'</span>),
+    layers.Conv2D(<span class="num">32</span>, (<span class="num">3</span>, <span class="num">3</span>), activation=<span class="str">'relu'</span>),
+    layers.MaxPooling2D((<span class="num">2</span>, <span class="num">2</span>)),
+
+    <span class="com"># Now flattening the data, this has to be before starting the dense layer</span>
+    layers.Flatten(), <span class="com"># From 4D to 1D</span>
+
+    <span class="com"># The traditional neural network starts here</span>
+    <span class="com"># Adding the Dense layer to classify the images in the labels</span>
+    layers.Dense(<span class="num">64</span>, activation=<span class="str">'relu'</span>),
+
+    <span class="com"># Output</span>
+    layers.Dense(<span class="num">10</span>, activation=<span class="str">'softmax'</span>) <span class="com"># as there is 10 labels</span>
+])
+
+model.summary() <span class="com"># what its telling and how to read???</span>
+</div>
+
+<h2>Compile</h2>
+
+<div class="theory-section">
+Selecting the appropriate loss function is critical for effective model training. For classification tasks, TensorFlow/Keras provides several options depending on the number of classes and label encoding format:
+
+1. <strong>BinaryCrossentropy</strong>: Used for binary classification tasks with only two classes. Labels are 0 or 1. Example: distinguishing cats from dogs.
+
+2. <strong>CategoricalCrossentropy</strong>: Suitable for multi-class classification with more than two classes, where labels are one-hot encoded vectors (e.g., class 3 → [0,0,1,0,...]). 
+
+3. <strong>SparseCategoricalCrossentropy</strong>: Also for multi-class classification, but labels are integer-encoded (e.g., class 3 → 3). This approach is often preferred for datasets like CIFAR-10 because it avoids the need to manually convert labels into one-hot vectors, simplifying preprocessing and reducing memory overhead.
+
+For the CIFAR-10 CNN, sparse categorical crossentropy is the natural choice since it directly supports integer labels corresponding to the ten object classes. Combining this loss function with the Adam optimizer ensures efficient gradient-based updates and stable convergence. Accuracy is tracked as a performance metric to monitor how often the model correctly predicts the target class during training and validation.
+</div>
+
+<div class="code-block">
+<span class="kw">from</span> tensorflow.keras <span class="kw">import</span> losses
+
+model.compile(
+    optimizer=<span class="str">'adam'</span>, <span class="com"># Optimizer</span>
+    loss=<span class="str">'sparse_categorical_crossentropy'</span>, <span class="com"># Loss</span>
+    metrics=[<span class="str">'accuracy'</span>]
+)
+</div>
+
+
+<h2>Training</h2>
+
+<div class="theory-section">
+This step performs the actual training of the CIFAR-10 CNN using the compiled model. During each epoch, the network processes batches of 32 images, adjusts its convolutional and dense layer weights based on the loss, and gradually improves its ability to classify images correctly.
+
+For convolutional neural networks, it is generally recommended to use a separate <code>validation_data</code> argument instead of a <code>validation_split</code>. This is because CNNs often involve spatial transformations and batch-wise operations where splitting training data on the fly can lead to inconsistencies or data leakage. Providing a dedicated validation set ensures that evaluation metrics accurately reflect the model’s performance on truly unseen images.
+
+Verbose output is enabled to monitor the training process in real time. Metrics such as loss and accuracy are reported for both training and validation sets after each epoch, helping track convergence and detect overfitting. Even with a relatively small number of epochs, CNNs can learn meaningful patterns from the CIFAR-10 images due to their hierarchical feature extraction capabilities.
+</div>
+
+<div class="code-block">
+model.fit(
+    x_train, y_train,
+    epochs=<span class="num">8</span>,
+    batch_size=<span class="num">32</span>,
+    validation_data=(x_test, y_test),
+    verbose=<span class="num">1</span>
+)
+
+<span class="com"># Rule of Thumb: use validation_data() instead of validation_split in CNN</span>
+</div>
+
+<div class="theory-section">
+The final epoch output summarizes the CNN’s performance after training. Training accuracy of 76.3% with a loss of 0.6588 indicates how well the model fits the training data. Validation accuracy of 72.5% with a higher loss of 0.8101 reflects its performance on unseen CIFAR-10 images, showing some generalization gap. The metrics indicate that while the model has learned meaningful features, it has not perfectly captured all patterns in the dataset. The <code>History</code> object returned stores the loss and accuracy per epoch, enabling visualization and further analysis of the learning dynamics.
+</div>
+
+<div class="code-block">Epoch 8/8
+1563/1563 ━━━━━━━━━━━━━━━━━━━━ 10s 5ms/step - accuracy: 0.7626 - loss: 0.6588 - val_accuracy: 0.7245 - val_loss: 0.8101
+<keras.src.callbacks.history.History at 0x7cddb965af30></div>
+
+<h2>Evaluate</h2>
+
+<div class="theory-section">
+This step evaluates the trained CNN on the test dataset to obtain an unbiased measure of performance. Unlike training metrics, evaluation on unseen data reveals how well the model generalizes to new images. The <code>evaluate()</code> method returns both the loss and accuracy. Loss quantifies the difference between predicted class probabilities and true labels, while accuracy shows the proportion of correctly classified images. Reporting the accuracy with four decimal precision allows precise comparison across experiments or model variations. This final evaluation confirms whether the model is ready for deployment or requires further tuning.
+</div>
+
+<div class="code-block">
+loss, accuracy = model.evaluate(x_test, y_test, verbose=2)
+print(f'the accuracy is: {accuracy:.04f}')
+</div>
+
+<div class="theory-section">
+The evaluation output confirms the CNN’s generalization on the CIFAR-10 test set. With a test accuracy of 72.45% and a loss of 0.8101, the model demonstrates moderate performance in correctly classifying unseen images. The slightly higher loss compared to training indicates some difficulty in capturing all variability in the data, which is common for small CNN architectures on complex datasets. These metrics provide a clear benchmark for the model and help guide future improvements, such as deeper networks, data augmentation, or hyperparameter tuning, to increase generalization and overall accuracy.
+</div>
+
+<div class="code-block">
+<span class="com"># Evaluation Output</span>
+313/313 - 1s - 2ms/step - accuracy: 0.7245 - loss: 0.8101
+the accuracy is: 0.7245
+</div>
+
+<h2>Saving CIFAR-10 model</h2>
+    
+<div class="theory-section">
+After training and evaluation, the final step is saving the CIFAR-10 CNN model. Persisting the model using TensorFlow’s <code>.keras</code> format stores both the network architecture and learned weights. This allows the model to be reloaded later for inference, further training, or deployment without repeating the entire training process. Saving ensures reproducibility, efficient experimentation, and easy sharing with others. The stored model includes all convolutional, pooling, and dense layers, along with optimizer state, enabling seamless continuation of training or direct use for predictions on new images.
+</div>
+
+<div class="code-block">
+<span class="com"># Save the trained CIFAR-10 model</span>
+model.save(<span class="str">"CIFAR10.keras"</span>)
+</div>
+
+
+<h2>Summary of Oculus</h2>
+
+<div class="theory-section">
+This project demonstrates an end-to-end workflow for building a convolutional neural network (CNN) on the CIFAR-10 dataset. The process begins by loading the dataset, which includes 50,000 training and 10,000 test images with ten distinct classes. Pixel values are normalized from 0–255 to a 0–1 range to improve training stability and convergence. The CNN architecture uses stacked convolutional and max pooling layers to extract hierarchical image features. Flattening transforms multi-dimensional feature maps into a 1D vector for fully connected dense layers. The final layer employs softmax activation for ten-class classification. The model is compiled with the Adam optimizer and sparse categorical crossentropy loss, trained with a dedicated validation set, achieves around 72% accuracy, and is saved for future use as CIFAR10.keras.
+</div>
+
+<!-- YAPPER -->
+           <div class="module-header">
+  <div id="yapper" class="heading-2">
+    Yapper : Natural Language processes[NLP]
+  </div>
+
+  <div class="module-actions">
+    <a href="https://github.com/aypy01/tensorflow/blob/main/bidirectional_lstm_imdb.ipynb" class="nerv-btn github">GitHub</a>
+    <a href="https://colab.research.google.com/github/aypy01/tensorflow/blob/main/bidirectional_lstm_imdb.ipynb" class="nerv-btn colab">Colab</a>
+  </div>
+</div>
+<h2>Introduction</h2>
+
+<div class="theory-section">
+This section introduces the Yapper project, which implements a binary sentiment classifier using the IMDB movie review dataset. The goal is to predict whether a given review expresses a positive or negative sentiment. The dataset consists of 50,000 reviews, split evenly into 25,000 training and 25,000 testing samples. Reviews are preprocessed into integer sequences representing words, and sequences are padded or truncated to a fixed length for uniform input. 
+
+The model employs an embedding layer that converts integers into 128-dimensional vectors, followed by two bidirectional LSTM layers. Bidirectional LSTMs capture context from both past and future words, enhancing sentiment understanding. A dense output layer with a sigmoid activation predicts the probability of a positive review. The model is trained using binary crossentropy loss with the Adam optimizer, a batch size of 32, and five epochs. Typical accuracy is around 83%, with potential improvement through longer sequences, expanded vocabulary, dropout, or pretrained embeddings. The test set is reserved for final evaluation to prevent data leakage.
+</div>
+
+<h2>Importing Libraries</h2>
+<div class="code-block">
+<span class="com"># Importing every library for this</span>
+<span class="com"># Only Keras and no TensorFlow</span>
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+<span class="kw">import</span> keras
+<span class="kw">from</span> keras <span class="kw">import</span> layers
+</div>
+
+<h2>Dataset</h2>
+
+<div class="theory-section">
+This step prepares the IMDB dataset for training the sentiment analysis model. To focus on the most informative words, only the top 20,000 frequently occurring words are retained, while rare words are discarded. Each review is truncated or padded to a fixed length of 200 words to ensure consistent input dimensions, which is necessary for batch processing in neural networks. Padding adds zeros at the beginning of shorter reviews, while longer reviews are truncated from the start, preserving the most recent context. After preprocessing, <code>x_train</code> and <code>x_test</code> contain sequences of word indices, and <code>y_train</code> and <code>y_test</code> contain binary labels (1 = positive, 0 = negative), ready for input into the embedding and LSTM layers.
+</div>
+
+<div class="code-block">
+<span class="com"># Features parameters</span>
+max_features = <span class="num">20000</span>  <span class="com"># Only consider the top 20k words</span>
+maxlen = <span class="num">200</span>  <span class="com"># Only consider the first 200 words of each movie review</span>
+
+<span class="com"># Load IMDB dataset keeping only top N words</span>
+(x_train, y_train), (x_test, y_test) = keras.datasets.imdb.load_data(num_words=max_features)
+
+<span class="com"># x_train = list of reviews (encoded as sequences of word indices)</span>
+<span class="com"># y_train = list of labels (1 = positive, 0 = negative)</span>
+<span class="com"># SAME FOR x_test and y_test</span>
+
+print(len(x_train), <span class="str">"Training sequences"</span>)
+print(len(x_test), <span class="str">"Test sequences"</span>)
+
+<span class="com"># Padding is required as the reviews are not the same length</span>
+<span class="com"># If words > 200 → truncate, if words < 200 → pad with 0</span>
+x_train = keras.utils.pad_sequences(x_train, maxlen=maxlen)
+x_test = keras.utils.pad_sequences(x_test, maxlen=maxlen)
+</div>
+
+<h2>Model of Bi-LSTM</h2>
+
+<div class="theory-section">
+This section defines the bidirectional LSTM architecture for the Yapper sentiment classifier. The input layer accepts sequences of integer word indices with flexible length. These integers are mapped to 128-dimensional embedding vectors, converting discrete words into continuous representations suitable for LSTM processing. 
+
+Two stacked bidirectional LSTM layers follow. The first LSTM returns sequences at each time step, enabling the second LSTM to capture context across the entire sequence. The second LSTM outputs a single vector summarizing the review’s semantic content. A final dense layer with sigmoid activation predicts the probability of a positive review, producing a binary classification. Stacking bidirectional LSTMs allows the model to understand both past and future word context, improving sentiment prediction performance.
+</div>
+
+<div class="code-block">
+<span class="com"># Input layer</span>
+<span class="com"># Accepts a variable-length sequence of integer word IDs</span>
+<span class="com"># shape=(None,) : sequence length is flexible</span>
+<span class="com"># dtype=int32 : required because the Embedding layer only accepts integer indices</span>
+inputs = keras.Input(shape=(None,), dtype=<span class="str">'int32'</span>)
+
+<span class="com"># Embedding layer</span>
+<span class="com"># Converts each integer word ID into a 128-dimensional learned vector</span>
+<span class="com"># Output shape: (batch_size, sequence_length, 128)</span>
+x = layers.Embedding(max_features, <span class="num">128</span>)(inputs)
+
+<span class="com"># First Bidirectional LSTM</span>
+<span class="com"># return_sequences=True returns a sequence (one output per time step)</span>
+<span class="com"># Needed when stacking LSTMs</span>
+x1 = layers.Bidirectional(layers.LSTM(<span class="num">64</span>, return_sequences=True))(x)
+
+<span class="com"># Second Bidirectional LSTM</span>
+<span class="com"># return_sequences=False returns a single vector summarizing the sequence</span>
+x2 = layers.Bidirectional(layers.LSTM(<span class="num">64</span>))(x1)
+
+<span class="com"># Output layer</span>
+<span class="com"># Dense(1) with sigmoid for binary classification</span>
+outputs = layers.Dense(<span class="num">1</span>, activation=<span class="str">'sigmoid'</span>)(x2)
+
+model = keras.Model(inputs, outputs)
+model.summary()
+</div>
+
+<h3>Model Summary</h3>
+
+<div class="theory-section">
+The model summary reports a total of 2,757,761 parameters, all of which are trainable. This includes weights in the embedding layer, both bidirectional LSTM layers, and the final dense output layer. No non-trainable parameters exist, meaning every weight can be updated during training. The total size of the model is approximately 10.52 MB. This parameter count reflects the model's capacity to learn complex patterns in the IMDB dataset, capturing both forward and backward context in the bidirectional LSTMs while transforming words into dense embeddings suitable for sentiment classification.
+</div>
+
+<h2>Compile</h2>
+
+<div class="theory-section">
+The model is compiled with the Adam optimizer, which efficiently adjusts the network weights using adaptive learning rates. For this binary sentiment classification task, the loss function is set to <code>binary_crossentropy</code>, suitable for outputs constrained between 0 and 1. Accuracy is chosen as the evaluation metric to measure the proportion of correctly predicted positive and negative reviews during training and validation. This setup ensures stable gradient updates, fast convergence, and meaningful performance tracking for the bidirectional LSTM network.
+</div>
+
+<div class="code-block">
+model.compile(
+    optimizer=<span class="str">"adam"</span>,
+    loss=<span class="str">"binary_crossentropy"</span>, <span class="com"># for binary classification (0 or 1)</span>
+    metrics=[<span class="str">"accuracy"</span>]
+)
+</div>
+
+<h2>Training</h2>
+
+<div class="theory-section">
+The model is trained on the preprocessed IMDB dataset with a batch size of 32 and for 2 epochs. Using a <code>validation_split</code> of 20% reserves a portion of the training data to monitor validation performance during training, helping detect overfitting early. Verbose output provides real-time feedback on training and validation accuracy and loss for each epoch. This training process adjusts the embedding and LSTM weights to minimize binary crossentropy loss, enabling the model to distinguish between positive and negative reviews effectively.
+</div>
+
+<div class="code-block">
+model.fit(
+    x_train, y_train,
+    batch_size=<span class="num">32</span>,
+    epochs=<span class="num">2</span>,
+    validation_split=<span class="num">0.2</span>,
+    verbose=<span class="num">1</span>
+)
+</div>
+
+
+<div class="theory-section">
+The training output shows rapid convergence of the bidirectional LSTM model on the IMDB dataset. Training accuracy reaches over 99% by the second epoch, indicating the model has effectively learned patterns in the training reviews. Validation accuracy, however, stabilizes around 86–87%, with slightly higher loss than training, highlighting a small generalization gap. This demonstrates that while the model captures sentiment features efficiently, there remains minor overfitting to the training data. The <code>History</code> object returned by <code>model.fit()</code> records loss and accuracy per epoch, enabling detailed analysis or plotting of the learning curves for further tuning.
+</div>
+
+<div class="code-block">Epoch 1/2
+625/625 ━━━━━━━━━━━━━━━━━━━━ 20s 33ms/step - accuracy: 0.9835 - loss: 0.0515 - val_accuracy: 0.8646 - val_loss: 0.4608
+Epoch 2/2
+625/625 ━━━━━━━━━━━━━━━━━━━━ 20s 32ms/step - accuracy: 0.9910 - loss: 0.0312 - val_accuracy: 0.8668 - val_loss: 0.5377
+<keras.src.callbacks.history.History at 0x7d66d18c5550></div>
+
+<h2>Evaluate</h2>
+
+<div class="theory-section">
+Evaluation on the test set provides an unbiased assessment of the model’s performance on unseen data. Using a batch size of 32, the bidirectional LSTM computes the binary crossentropy loss and accuracy across all test reviews. This step confirms how well the model generalizes beyond the training data, offering a reliable measure of its ability to correctly classify positive and negative movie reviews. Monitoring test metrics ensures that any improvements or modifications in training do not lead to overfitting.
+</div>
+
+<div class="code-block">
+model.evaluate(x_test, y_test, batch_size=<span class="num">32</span>, verbose=<span class="num">1</span>)
+</div>
+
+
+<div class="theory-section">
+The evaluation results indicate that the bidirectional LSTM model achieves an accuracy of approximately 85.2% on the IMDB test set, with a loss of 0.6026. The slightly higher loss compared to training reflects the natural challenge of generalizing to unseen reviews. These metrics confirm that the model successfully captures sentiment patterns and can reliably distinguish between positive and negative reviews. The output array provides both the loss and accuracy values, which can be used for further analysis or benchmarking against alternative architectures or hyperparameter settings.
+</div>
+
+<div class="code-block">
+<span class="com"># Evaluation Output</span>
+782/782 ━━━━━━━━━━━━━━━━━━━━ 10s 13ms/step - accuracy: 0.8518 - loss: 0.6026
+[0.5931116938591003, 0.8535199761390686]
+</div>
+
+<h2>Saving Yapper model </h2>
+
+<div class="theory-section">
+After training and evaluation, the bidirectional LSTM sentiment model is saved using TensorFlow/Keras <code>.keras</code> format. This preserves the full architecture, learned weights, and optimizer state, allowing the model to be reloaded later for inference, further training, or deployment. Saving ensures reproducibility and efficient reuse of the trained model without repeating the entire training process, making it easy to integrate into applications such as the Yapper NLP project.
+</div>
+
+<div class="code-block">
+<span class="com"># Save the trained bidirectional LSTM model</span>
+model.save(<span class="str">"sentiments_biderectional.keras"</span>)
+</div>
+
+
+<div class="theory-section">
+The Yapper project implements a binary sentiment classifier using a bidirectional LSTM network on the IMDB movie review dataset. The workflow begins with loading and preprocessing 50,000 reviews, retaining the top 20,000 words and padding/truncating sequences to a fixed length of 200. The model maps words to 128-dimensional embeddings and passes them through two stacked bidirectional LSTM layers, which capture both forward and backward context. A dense output layer with sigmoid activation predicts positive or negative sentiment. The network is trained with binary crossentropy loss and Adam optimizer, achieving approximately 85% test accuracy. The trained model is saved as <code>sentiments_biderectional.keras</code> for future inference or deployment.
+</div>
+
+
+
+<p style="border-bottom: 10px solid var(--eva-orange);"></p>
+            
+   
+
+
+            
+<!-- Django -->
+           <div class="module-header">
+  <div id="website" class="heading-2">
+    WEBSITE
+  </div>
+
+  <div class="module-actions">
+    <a href="https://docs.djangoproject.com/en/6.0/" class="nerv-btn github">Documentation</a>
+  </div>
+</div>
+<h2>Introduction</h2>
+
+<div class="theory-section">
+So far, we have worked with static web technologies such as <code>HTML</code> and <code>CSS</code>, used <code>Git</code> and <code>GitHub</code> to track changes and collaborate, and become familiar with the <code>Python</code> programming language. Static websites always return the same content for every request, which limits their ability to handle user interaction or dynamic data.
+
+
+
+In this section, we move to building <strong>dynamic web applications</strong> using <strong>Django</strong>, a Python-based web framework. You are encouraged to follow each step carefully and copy–paste the provided code blocks to recreate the same structure and behavior in your own Django project.
+</div>
+
+<h2>Django</h2>
+<div class="theory-section">
+Django allows us to write Python code that dynamically generates HTML and CSS. The advantage of using a framework like Django is that much of the repetitive and low-level setup code is already written for us. This enables developers to focus on application logic, data flow, and structure rather than reinventing common components such as routing, configuration, and request handling.
+</div>
+
+<h2>Installing Django</h2>
+
+<div class="theory-section">
+Before installing Django, ensure that <code>pip</code> is available on your system. Pip is Python’s package manager and is required to install third-party libraries. Once pip is installed, Django can be installed by running the following command in the terminal:
+</div>
+
+<div class="code-block">
+pip3 install Django
+</div>
+
+<h2>Creating a Django Project</h2>
+
+<div class="theory-section">
+After installing Django, a new project can be created using the <code>django-admin</code> command. This command generates a predefined directory structure and configuration files required to run a Django application.
+</div>
+
+<div class="code-block">
+django-admin startproject PROJECT_NAME
+</div>
+
+<div class="theory-section">
+Navigate into the newly created project directory:
+</div>
+
+<div class="code-block">
+cd PROJECT_NAME
+</div>
+
+<div class="theory-section">
+Django automatically creates several files. At this stage, three files are especially important:
+</div>
+
+<div class="theory-section">
+<ul>
+  <li><strong>manage.py</strong> - used to execute Django commands from the terminal.</li>
+  <li><strong>settings.py</strong> -contains configuration settings for the project.</li>
+  <li><strong>urls.py</strong> - defines how URLs are routed to views.</li>
+</ul>
+</div>
+
+<h2>Running the Development Server</h2>
+
+<div class="theory-section">
+To verify that the project was created correctly, start Django’s built-in development server. This server runs locally and is intended only for development and testing.
+</div>
+
+<div class="code-block">
+python manage.py runserver
+</div>
+
+<div class="theory-section">
+Opening the provided URL in a browser should display Django’s default landing page. Since this server runs locally, it is only accessible from your own machine.
+</div>
+
+<h2>Creating an Application</h2>
+
+<div class="theory-section">
+Django projects are divided into one or more applications. An application represents a specific functional component of the project. Most small projects require only a single application, while larger systems can be split into multiple apps.
+</div>
+
+<div class="code-block">
+python manage.py startapp APP_NAME
+</div>
+
+<div class="theory-section">
+After creating the application, it must be registered with the project. This is done by adding the application name to the <code>INSTALLED_APPS</code> list in <code>settings.py</code>. Once registered, Django recognizes the app and allows it to participate in routing, database migrations, and template rendering.
+At this point, we have transitioned from static websites to dynamic web applications. Dynamic sites generate content at runtime using a programming language such as Python, making it possible to respond to user input, interact with databases, and scale complex systems efficiently.
+</div>
+
+<div class="theory-section">
+For deeper reference and official documentation, consult the Django documentation linked below.
+</div>
+
+<div class="code-block">
+https://docs.djangoproject.com/en/6.0/
+</div>
+
+
+<!-- NERV -->
+           <div class="module-header">
+  <div id="nerv" class="heading-2">
+    NERV
+  </div>
+
+  <div class="module-actions">
+    <a href="https://github.com/aypy01/nerv/tree/main" class="nerv-btn github">Github</a>
+  </div>
+</div>
+<h2>Introduction</h2>
+<div class="theory-section">
+Django follows a request–response flow where URLs act as the entry point to application logic. The main project-level <code>urls.py</code> is responsible for delegating routes to individual apps. In this project, requests are first routed through the main <code>urls.py</code>, which forwards traffic to the <code>nerv</code> app. Inside the app, a dedicated <code>urls.py</code> maps URL paths to view functions defined in <code>views.py</code>.
+
+The <code>predict_titanic</code> view handles both rendering the form and processing user input. When a GET request is made, an empty <code>TitanicForm</code> is displayed. On POST, validated form data is extracted, manually encoded to match the feature layout used during model training, and passed to a preloaded TensorFlow model. The model is loaded once at the module level to avoid repeated disk access and improve performance.
+
+The prediction result is computed using a sigmoid threshold and sent back to the template along with state flags and a GitHub reference to the original training notebook. This approach keeps the web layer lightweight while reusing the exact trained model from the earlier machine learning workflow.
+</div>
+
+<h2>Models</h2>
+
+<div class="theory-section">
+All trained machine learning models used by NERV are stored inside the <code>models</code> directory of the main repository. This folder contains the finalized <code>.keras</code> model files that are loaded directly by Django during inference. No training happens inside the web application itself, the web layer strictly focuses on inference and integration.
+
+<p>You can access the complete collection of trained models below:</p>
+
+<div class="module-actions">
+  <a href="https://github.com/aypy01/nerv/tree/main/nerv/models"
+     class="nerv-btn github"
+     target="_blank">
+     Download all models
+  </a>
+</div>
+
+<p>
+For this tutorial, we specifically use the Titanic survival prediction model. If you only want the Titanic model without cloning the entire repository, download it directly and place it inside <code>nerv/models/</code> in your Django project.
+</p>
+
+<div class="module-actions">
+  <a href="https://github.com/aypy01/nerv/blob/main/nerv/models/titanic.keras"
+     class="nerv-btn github"
+     target="_blank">
+     Download titanic.keras
+  </a>
+</div>
+
+<p>
+Make sure the model path matches exactly, otherwise Django will fail to load the model at runtime.
+</p>
+</div>
+
+<h2>Views.py</h2>
+
+
+<div class="code-block">
+<span class="com"># Django shortcut to render HTML templates</span>
+from django.shortcuts import render
+
+<span class="com"># Import forms used for user input validation</span>
+from .forms import TitanicForm, IrisForm, Cifar10Form, SentimentsForm
+
+<span class="com"># Load pre-trained TensorFlow / Keras models</span>
+from tensorflow.keras.models import load_model
+
+<span class="com"># NumPy is used to construct numerical input arrays</span>
+import numpy as np
+
+
+<span class="com"># Load the trained Titanic model once at startup</span>
+<span class="com"># This is the same model trained earlier in the TensorFlow workflow</span>
+<span class="com"># Loading it globally avoids reloading the model on every request</span>
+titanic_model = load_model(<span class="str">'nerv/models/titanic.keras'</span>)
+
+
+<span class="com"># Render the landing page of the NERV application</span>
+def index(request):
+    return render(request, <span class="str">'nerv/index.html'</span>)
+
+
+<span class="com"># Handle Titanic survival prediction requests</span>
+def predict_titanic(request):
+
+    <span class="com"># Initialize prediction state</span>
+    prediction = None
+    is_predicted = False
+
+    <span class="com"># Link to the original training notebook</span>
+    github_link = <span class="str">"https://github.com/aypy01/tensorflow/blob/main/module-2.ipynb"</span>
+
+    <span class="com"># Process form submission</span>
+    if request.method == <span class="str">'POST'</span>:
+
+        <span class="com"># Bind POST data to TitanicForm</span>
+        form = TitanicForm(request.POST)
+
+        <span class="com"># Validate input fields</span>
+        if form.is_valid():
+            data = form.cleaned_data
+
+            <span class="com"># Extract numerical features</span>
+            age = data[<span class="str">'age'</span>]
+            sibsp = data[<span class="str">'sibsp'</span>]
+            parch = data[<span class="str">'parch'</span>]
+
+            <span class="com"># Extract categorical features</span>
+            sex = data[<span class="str">'sex'</span>]
+            pclass = data[<span class="str">'pclass'</span>]
+
+            <span class="com"># One-hot encode sex</span>
+            sex_female = <span class="num">1</span> if sex == <span class="num">1</span> else <span class="num">0</span>
+            sex_male = <span class="num">1</span> if sex == <span class="num">0</span> else <span class="num">0</span>
+
+            <span class="com"># One-hot encode passenger class</span>
+            class_First = <span class="num">1</span> if pclass == <span class="num">1</span> else <span class="num">0</span>
+            class_Second = <span class="num">1</span> if pclass == <span class="num">2</span> else <span class="num">0</span>
+            class_Third = <span class="num">1</span> if pclass == <span class="num">3</span> else <span class="num">0</span>
+
+            <span class="com"># Combine all features into a single input vector</span>
+            <span class="com"># Shape: (1, 8) → matches model training input</span>
+            input_data = np.array([[ 
+                age, sibsp, parch,
+                sex_female, sex_male,
+                class_First, class_Second, class_Third
+            ]])
+
+            <span class="com"># Run model inference</span>
+            pred = titanic_model.predict(input_data)
+
+            <span class="com"># Apply threshold to convert probability into class label</span>
+            prediction = <span class="str">'Survived'</span> if pred[<span class="num">0</span>][<span class="num">0</span>] &gt; <span class="num">0.5</span> else <span class="str">'Did not survive'</span>
+
+            is_predicted = True
+
+    <span class="com"># If request is GET, render an empty form</span>
+    else:
+        form = TitanicForm()
+
+    <span class="com"># Render the Titanic template with prediction context</span>
+    return render(request, <span class="str">'nerv/titanic.html'</span>, {
+        <span class="str">'form'</span>: form,
+        <span class="str">'prediction'</span>: prediction,
+        <span class="str">'is_predicted'</span>: is_predicted,
+        <span class="str">'github_link'</span>: github_link,
+    })
+</div>
+
+
+<h2>urls.py</h2>
+
+<div class="code-block">
+<span class="com"># Django URL routing configuration</span>
+<span class="com"># Maps URL paths to their corresponding view functions</span>
+
+<span class="kw">from</span> django.urls <span class="kw">import</span> path
+<span class="kw">from</span> . <span class="kw">import</span> views
+
+<span class="com"># URL patterns list</span>
+<span class="com"># Each path() connects a URL endpoint to a view</span>
+urlpatterns = [
+
+    <span class="com"># Home / landing page</span>
+    <span class="com"># Accessible at: /</span>
+    path(<span class="str">''</span>, views.index, name=<span class="str">'index'</span>),
+
+    <span class="com"># Titanic survival prediction page</span>
+    <span class="com"># Accessible at: /titanic/</span>
+    <span class="com"># Handles form input + ML model prediction</span>
+    path(<span class="str">'titanic/'</span>, views.predict_titanic, name=<span class="str">'predict_titanic'</span>),
+]
+</div>
+
+
+<h2>forms.py</h2>
+<div class="theory-section">
+Django forms act as the bridge between raw user input and validated, structured Python data. In this project, <code>forms.py</code> defines a <code>TitanicForm</code> that mirrors the exact features used during model training, ensuring consistency between the machine learning pipeline and the web interface.
+
+Instead of manually parsing request data, Django’s form system handles type conversion, validation, and error handling automatically. Categorical features such as passenger class and sex are represented using <code>TypedChoiceField</code>, which safely converts user selections into integers that match the one-hot encoding logic used in the prediction view. Numerical inputs like age, siblings/spouses, and parents/children aboard are constrained using minimum values to prevent invalid data from reaching the model.
+
+Custom placeholders are added through widget attributes to improve usability without introducing JavaScript or CSS dependencies. The <code>clean()</code> method finalizes the validation step and returns sanitized input data, making it safe to directly construct NumPy arrays for inference. This design keeps the form layer simple, explicit, and tightly aligned with the trained Titanic survival model.
+</div>
+
+<div class="code-block">
+<span class="com"># Django forms for Titanic survival prediction</span>
+<span class="com"># Defines input fields and validation rules</span>
+
+from django import forms
+
+<span class="com"># Form class for Titanic inputs</span>
+class TitanicForm(forms.Form):
+
+    <span class="com"># Choices for passenger class</span>
+    PCLASS_CHOICES = [
+        (1, '1st Class'),
+        (2, '2nd Class'),
+        (3, '3rd Class'),
+    ]
+
+    <span class="com"># Choices for passenger sex</span>
+    SEX_CHOICES = [
+        (0, 'Male'),
+        (1, 'Female'),
+    ]
+
+    <span class="com"># Passenger class input (1st, 2nd, 3rd)</span>
+    pclass = forms.TypedChoiceField(
+        choices=PCLASS_CHOICES,
+        label='Passenger Class',
+        coerce=int  <span class="com"># Convert form value to integer</span>
+    )
+
+    <span class="com"># Sex input (male/female)</span>
+    sex = forms.TypedChoiceField(
+        choices=SEX_CHOICES,
+        label='Sex',
+        coerce=int
+    )
+
+    <span class="com"># Age input (float, must be >= 0)</span>
+    age = forms.FloatField(
+        label='Age',
+        min_value=0,
+        widget=forms.NumberInput(attrs={
+            'placeholder': 'Input the Age'
+        })
+    )
+
+    <span class="com"># Number of siblings/spouses aboard (integer >= 0)</span>
+    sibsp = forms.IntegerField(
+        label='Siblings/Spouses Aboard',
+        min_value=0,
+        widget=forms.NumberInput(attrs={
+            'placeholder': 'Number of Siblings/Spouses aboard'
+        })
+    )
+
+    <span class="com"># Number of parents/children aboard (integer >= 0)</span>
+    parch = forms.IntegerField(
+        label='Parents/Children Aboard',
+        min_value=0,
+        widget=forms.NumberInput(attrs={
+            'placeholder': 'Number of Parents/Children aboard'
+        })
+    )
+
+    <span class="com"># Optional: can add custom cross-field validation here</span>
+    def clean(self):
+        cleaned_data = super().clean()
+        return cleaned_data
+</div>
+
+
+<h2>HTML</h2>
+
+<div class="theory-section">
+Before building the Titanic prediction interface, we first need to set up Django’s template structure correctly. Django looks for HTML files inside a <code>templates</code> directory that mirrors the app name. Since our application is named <code>nerv</code>, all templates related to this app should live inside <code>nerv/templates/nerv/</code>.
+
+Inside this directory, we create individual HTML files for each project page. For this walkthrough, we focus only on <code>titanic.html</code>. Other projects such as Iris, CIFAR-10, or Yapper follow the same pattern and are intentionally omitted here to keep the documentation concise.
+
+The template extends <code>layout.html</code>, which acts as the global base layout shared across NERV pages. This keeps navigation, fonts, and theme elements consistent while allowing each project page to inject its own content. The form submits data to the <code>predict_titanic</code> view via Django’s URL routing, and the prediction result is rendered dynamically using context variables passed from <code>views.py</code>.
+
+At this stage, no CSS or JavaScript is required to understand the Django–model integration. Styling and interactions can be customized later or referenced directly from the NERV repository.
+</div>
+
+<h2>titanic.html</h2>
+<div class="code-block">
+    <pre><code>
+    {% extends 'nerv/layout.html' %}
+    {% load static %}
+
+    {% templatetag openblock %} block content {% templatetag closeblock %}
+    &lt;div class="program-container titanic-container"&gt;
+
+    &lt;h2 class="title-glow"&gt;TITANIC SURVIVAL PREDICTION&lt;/h2&gt;
+
+    &lt;div class="links-row"&gt;
+        &lt;span class="com"&gt;# GitHub link for reference or code&lt;/span&gt;
+        {% templatetag openblock %} if github_link {% templatetag closeblock %}
+        &lt;a class="nerv-button github" href="{% templatetag openvariable %} github_link {% templatetag closevariable %}" target="_blank"&gt;GITHUB&lt;/a&gt;
+        {% templatetag openblock %} else {% templatetag closeblock %}
+        &lt;span class="disabled-link"&gt;GitHub Repo&lt;/span&gt;
+        {% templatetag openblock %} endif {% templatetag closeblock %}
+    &lt;/div&gt;
+
+    &lt;!-- FORM --&gt;
+    &lt;form id="titanic-form" class="predict-form cyber-card" method="post" action="{% templatetag openblock %} url 'nerv:titanic' {% templatetag openblock %}"&gt;
+        {% templatetag openblock %} csrf_token {% templatetag closeblock %}
+
+        &lt;div class="form-grid"&gt;
+            &lt;div class="field"&gt;
+                {% templatetag openvariable %} form.pclass.label_tag {% templatetag closevariable %}
+                &lt;div class="custom-select-container"&gt;
+                    &lt;div class="custom-select-trigger"&gt;Select Class &lt;span class="arrow"&gt;&lt;/span&gt;&lt;/div&gt;
+                    &lt;ul class="custom-options"&gt;
+                        &lt;li class="custom-option" data-value="1"&gt;1st Class&lt;/li&gt;
+                        &lt;li class="custom-option" data-value="2"&gt;2nd Class&lt;/li&gt;
+                        &lt;li class="custom-option" data-value="3"&gt;3rd Class&lt;/li&gt;
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+
+    &lt;script&gt;
+        const predictionVal = "{% templatetag openvariable %} prediction|default:''|escapejs {% templatetag closevariable %}";
+    &lt;/script&gt;
+
+    &lt;/div&gt;
+    {% templatetag openblock %} endblock {% templatetag closeblock %}
+    &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+    </code></pre>
+</div>
+
+
+<h2>Static</h2>
+<div class="theory-section">
+Django does not automatically serve CSS and JavaScript files from templates. To keep frontend assets organized and reusable, Django uses a dedicated <code>static</code> directory. For app-specific assets, the recommended structure is to create a <code>static</code> folder inside the app and mirror the app name again.
+
+For the NERV project, static files related to the Titanic page live under <code>nerv/static/nerv/</code>. Inside this directory, we separate styles and scripts into <code>styles.css</code> and <code>scripts.js</code>. This keeps presentation logic out of HTML and allows contributors to customize or replace styling without touching backend code.
+
+The Titanic page relies on a cyberpunk-inspired UI: glowing headings, grid-based forms, custom dropdowns, and an overlay-based prediction result. The CSS handles layout, typography, hover effects, and status colors, while JavaScript manages custom select behavior and prediction overlay state. No framework is used-everything is plain CSS and vanilla JavaScript to keep the project lightweight and dependency-free.
+</div>
+
+<h2>CSS</h2>
+<div class="code-block">
+/* Core Layout */
+.program-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 40px;
+}
+
+.title-glow {
+    color: #ff7a00;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+/* Buttons */
+.nerv-button {
+    padding: 10px 18px;
+    border: 1px solid #ff7a00;
+    color: #ff7a00;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nerv-button:hover {
+    background: #ff7a00;
+    color: #000;
+}
+
+/* Form */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+/* Custom Select */
+.custom-select-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.custom-select-trigger {
+    border: 1px solid #444;
+    padding: 10px;
+    background: #111;
+}
+
+.custom-options {
+    display: none;
+    position: absolute;
+    width: 100%;
+    background: #000;
+    border: 1px solid #444;
+    z-index: 10;
+}
+
+.custom-option {
+    padding: 10px;
+}
+
+.custom-option:hover {
+    background: #ff7a00;
+    color: #000;
+}
+
+/* Overlay */
+.nerv-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.alert-green {
+    background: #0f0;
+    color: #000;
+}
+
+.alert-red {
+    background: #f00;
+    color: #000;
+}
+</div>
+
+<h2>javascript</h2>
+<div class="code-block">
+document.querySelectorAll(".custom-select-container").forEach((select, idx) => {
+    const trigger = select.querySelector(".custom-select-trigger");
+    const options = select.querySelector(".custom-options");
+    const hiddenInput = document.querySelectorAll("input[type='hidden']")[idx];
+
+    trigger.addEventListener("click", () => {
+        options.style.display = options.style.display === "block" ? "none" : "block";
+    });
+
+    options.querySelectorAll(".custom-option").forEach(option => {
+        option.addEventListener("click", () => {
+            trigger.childNodes[0].nodeValue = option.textContent + " ";
+            hiddenInput.value = option.dataset.value;
+            options.style.display = "none";
+        });
+    });
+});
+
+// Close dropdowns on outside click
+document.addEventListener("click", e => {
+    if (!e.target.closest(".custom-select-container")) {
+        document.querySelectorAll(".custom-options").forEach(o => o.style.display = "none");
+    }
+});
+</div>
+
+<!-- Voila -->
+           <div class="module-header">
+  <div id="result" class="heading-2">
+    Result
+  </div>
+  <h2>Voila !</h2>
+    
+
+  <div id="video" class="video-container">
+    <div class="video-wrapper">
+
+      <video <video 
+        autoplay 
+        loop 
+        playsinline
+        muted
+      >
+        <source src="../../assets/videos/titanic_demo.mp4" type="video/mp4">
+      </video>
+
+      
+
+    </div>
+  </div>
+
+ <div class="module-header">
+  <div id="credits" class="heading-2">
+    Acknowledgements
+
+  </div>
+  
+  <p class="theory-section">
+This project would not exist without strong foundational tools, platforms, and educators that shaped both the technical and conceptual direction of the work.
+
+<strong>TensorFlow</strong> - for providing a robust and production-ready framework for building, training, and deploying neural models<br>
+<strong>Django</strong> - for enabling clean backend integration and turning models into interactive web applications<br>
+<strong>scikit-learn</strong> -for classical ML utilities and grounding model evaluation practices<br>
+<strong>Google Colab</strong> - for accessible compute and rapid experimentation during development<br>
+<strong>GitHub</strong> - for version control, open-source collaboration, and project distribution
+
+<strong>CS50 (Harvard University)</strong> -for instilling rigorous problem-solving and system-level thinking<br>
+<strong>David J. Malan</strong> - for clarity, discipline, and respect for computer science fundamentals<br>
+<strong>Brian Yu (CS50 Web)</strong> - for structured, real-world web development practices
+
+<strong>ChatGPT</strong> - for accelerated iteration, debugging, and architectural reasoning<br>
+<strong>GitHub Copilot</strong> - for productivity assistance and inline code generation
+</p>
+
+
+
+ <div class="module-header">
+  <div id="note" class="heading-2">
+    Note
+
+  </div>
+  <p class="theory-section">
+NERV is not about experimenting blindly. It exists because my early AI and ML projects felt too abstract models trained, evaluated, and then forgotten inside notebooks. This project is my shift from learning concepts to applying intelligence with intent. Every model here is treated as a real system: versioned, measurable, replaceable, and open to improvement. Training is iterative, but deployment is deliberate. If a model cannot be used, tested, or observed in the real world, it does not belong here. NERV is where learning stops being academic and starts becoming operational.
+</p>
+
+ <div class="module-header">
+  <div id="author" class="heading-2">
+    Author
+
+  </div>
+  <p align="left">
+    Created and maintained by&nbsp;
+    <a href="https://github.com/aypy01" target="_blank">
+      <img 
+        src="https://img.shields.io/badge/Aaditya_Yadav-aypy01-e6770b?style=flat-square&logo=github&logoColor=00FF80&labelColor=765898"
+        alt="GitHub Badge"
+      />
+    </a>
+  </p>
+
+  <p>
+    <img 
+      src="https://readme-typing-svg.demolab.com?font=Fira+Code&duration=3000&pause=500&color=00FF80&background=765898&center=false&vCenter=false&width=440&lines=Break+Things+First%2C+Understand+Later;Built+to+Debug%2C+Not+Repeat;Learning+What+Actually+Sticks;Code.+Observe.+Refine."
+      alt="Typing SVG"
+    />
+  </p>
+
+
+ <div class="module-header">
+  <div id="license" class="heading-2">
+    License
+
+  </div>
+  <p class="theory-section">
+    This project is open-source by design. You are free to study it, modify it, deploy it,
+    and build upon it as long as attribution is preserved.
+    NERV is meant to be learned from, not locked behind abstraction. <br>
+    <a href="https://opensource.org/licenses/MIT" target="_blank">
+      <img 
+        src="https://img.shields.io/badge/License-MIT-yellow.svg"
+        alt="MIT License Badge"
+      />
+    </a>
+  </p>
+
+
+
+
+
+</div>
+
+    </main>
+</body>
+</html>
