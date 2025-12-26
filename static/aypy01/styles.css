@@ -379,3 +379,116 @@
             z-index: -1;
             pointer-events: none;
         }
+
+        /* =========================================
+           Mobile overrides (≤768px)
+           All changes live inside this media query only to preserve desktop design.
+           Each block includes a brief comment explaining why it exists.
+           ========================================= */
+        @media (max-width: 768px) {
+
+            /* Prevent horizontal scrolling while allowing vertical scroll on mobile */
+            body {
+                overflow-x: hidden; /* avoid horizontal scroll */
+                overflow-y: auto; /* allow vertical scrolling for content */
+                height: auto; /* let body grow with content on small screens */
+                align-items: flex-start; /* stop centering to allow natural scroll */
+                padding: 0; /* reduce any extra outer spacing */
+            }
+
+            /* Ensure the primary container fits viewport width and doesn't force overflow */
+            div.retro-container {
+                max-width: 100%; /* use full available width on small screens */
+                width: 100vw; /* avoid side gutters that cause horizontal overflow */
+                height: auto; /* allow full content height */
+                min-height: 100vh; /* keep background coverage but allow content expansion */
+                overflow-x: hidden; /* prevent any child from causing horizontal scroll */
+            }
+
+            /* Tweak the fixed background grid to avoid overflow and keep it flexible */
+            .bg-grid {
+                max-width: 100%; /* ensure grid doesn't exceed viewport */
+                overflow-x: hidden; /* guard against unexpected overflow */
+                background-size: 30px 30px; /* slightly denser grid on small screens */
+            }
+
+            /* Reduce large paddings to fit more content horizontally */
+            header { padding: 0.6rem 1rem; /* smaller header padding */ }
+            main { padding: 1.2rem 1rem; /* smaller main padding to prevent overflow */ }
+
+            /* Sections should fill mobile width and reduce huge vertical gaps */
+            section {
+                max-width: 100%; /* ensure full-width sections on mobile */
+                padding: 0 0.5rem; /* small horizontal padding for breathing room */
+                margin-bottom: 3rem; /* reduce large bottom spacing */
+            }
+
+            /* Stack navigation vertically and reduce font-size to avoid wrapping issues */
+            nav ul {
+                flex-direction: column; /* stack links for easy tapping */
+                gap: 0.6rem; /* smaller gaps between stacked links */
+                align-items: flex-start;
+            }
+            nav a { font-size: 1rem; /* slightly smaller nav text */ }
+
+            /* Ensure grid-based social nodes become single column to avoid side-by-side overflow */
+            .social-uplink-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+
+            /* Project cards: stack vertically and remove large fixed heights */
+            .project-card {
+                flex-direction: column; /* stack model above/below text */
+                min-height: auto; /* remove heavy min-height that causes narrowing issues */
+                gap: 0; /* remove added gap that contributes to overflow */
+            }
+            .project-content {
+                padding: 1.2rem; /* reduce inner padding to fit content */
+                border-right: none; /* remove vertical separator on stacked layout */
+                border-top: 1px dashed var(--border-color); /* keep a separator visually */
+            }
+
+            /* Convert fixed canvas width to full-width and allow responsive height */
+            .model-canvas {
+                width: 100%; /* use full width on mobile */
+                height: auto; /* let content determine height */
+                min-height: 200px; /* ensure there's sensible visual area for the model */
+                flex-shrink: 0;
+            }
+
+            /* Reduce overly large icons and corner elements to fit smaller screens */
+            .brand-logo-svg { width: 28px; height: 28px; /* scale down brand mark */ }
+            .corner-svg { width: 8px; height: 8px; /* smaller corner pixels */ }
+
+            /* Scale down headings and brand title for better fits */
+            h2 { font-size: 1.4rem; gap: 1rem; margin-bottom: 1rem; }
+            .name-brand h1 { font-size: 1.4rem; }
+
+            /* Contact layout: already switches under 900px, ensure tight spacing here */
+            .contact-layout { grid-template-columns: 1fr; gap: 1rem; }
+
+            /* Reduce button size to fit within narrow widths */
+            button.btn-industrial { padding: 0.7rem 1.2rem; font-size: 0.9rem; }
+
+            /* Relax fixed heights so content can flow naturally */
+            .response-container { min-height: 120px; }
+
+            /* Make media elements responsive to their containers */
+            img, picture, video, iframe, canvas, svg {
+                max-width: 100%; /* scale down to container width */
+                height: auto; /* preserve aspect ratio */
+                display: block; /* avoid inline whitespace causing overflow */
+            }
+
+            /* Guard: ensure no element exceeds viewport width */
+            * { max-width: 100vw; box-sizing: border-box; }
+
+            /* Tighter spacing for stack tags */
+            .stack-container { margin-top: 1rem; gap: 6px; }
+
+            /* Footer: smaller padding and font size for narrow displays */
+            footer { padding: 0.6rem 1rem; font-size: 0.9rem; }
+
+            /* Tune project typography for readability on small screens */
+            .project-code { font-size: 1.1rem; }
+            .project-desc { font-size: 1rem; }
+
+        }
