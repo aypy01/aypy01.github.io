@@ -494,3 +494,71 @@
             .project-desc { font-size: 1rem; }
 
         }
+
+/* Certifications */
+#certifications {
+    margin-top: 4rem;
+}
+
+
+/* GRID */
+.cert-list {
+    margin-top: 4rem;
+    padding-left: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+}
+
+/* LINK RESET */
+.cert-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.cert-link:visited {
+    color: inherit;
+}
+
+/* BADGE */
+.cert-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+}
+
+/* LOGO */
+.cert-badge img {
+    
+    width: 480px;   /* actually visible */
+    height: auto;
+    filter: grayscale(70%) opacity(0.8);
+    transition: filter 0.25s ease, transform 0.25s ease;
+    background: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+/* TEXT */
+.cert-badge span {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-light);
+    font-weight: 700;
+    text-align: center;
+    ;
+    
+}
+
+/* HOVER */
+.cert-badge:hover img {
+    filter: grayscale(0%) opacity(1);
+    transform: translateY(-8px);
+}
+
+.cert-badge:hover span {
+    color: var(--primary-orange);
+}
