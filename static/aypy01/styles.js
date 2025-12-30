@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     setTimeout(cycleQuotes, 1000);
-    setInterval(cycleQuotes, 15000);
+    setInterval(cycleQuotes, 4000);
   }
 
   /* ===============================

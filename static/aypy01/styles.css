@@ -221,7 +221,7 @@
 
         /* Specialized Fixed Height for Response Container to stop Layout Shift */
         .response-container {
-            min-height: 180px; /* Strong Lock on height */
+            height: 180px; /* Strong Lock on height */
             display: flex;
             align-items: flex-start;
             overflow: hidden;
@@ -235,6 +235,8 @@
             display: block;
             white-space: pre-wrap;
             width: 100%;
+            max-height: calc(1.6em * 3);
+            overflow: hidden;
         }
         
 
