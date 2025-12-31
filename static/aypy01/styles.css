@@ -110,6 +110,12 @@
             font-weight: 700;
 
         }
+        .creator {
+            color: var(--primary-red);
+            font-size: 1.4rem;
+            font-weight: 900;
+
+        }
         .success{
             color: var(--primary-green);
         }
@@ -188,7 +194,7 @@
 
         .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
         .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; font-size: 0.95rem; color: var(--primary-orange); margin-bottom: 0.5rem; }
+        .form-group label { display: block; font-size: 1rem; color: var(--primary-orange); margin-bottom: 0.5rem;font-weight: 700; }
         .form-group input, .form-group textarea {
             width: 100%; background: #0a0a0a; border: 1px solid var(--border-color);
             padding: 1rem; color: var(--text-light); font-family: inherit;
@@ -197,7 +203,7 @@
 
         button.btn-industrial {
             background: var(--primary-orange); color: #000; border: none;
-            padding: 1rem 2.5rem; font-weight: bold; cursor: pointer;
+            padding: 1rem 2rem;font-size: 1.2rem; font-weight: 700; cursor: pointer;
             text-transform: uppercase; font-family: inherit;
         }
 
@@ -602,4 +608,17 @@
   font-weight: 600;
   line-height: 1.6;
   color: var(--text-muted);
+}
+
+
+.brand-logo-svg-project {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 60px;
+  height: auto;
+  opacity: 0.6;
+  fill: var(--primary-red);
+  pointer-events: none;
+  z-index: 1;
 }
