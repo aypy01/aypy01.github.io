@@ -291,7 +291,7 @@
         }
 
         .project-card:hover {
-            border-color: var(--text-grey);
+            border-color: var(--primary-orange);
             transform: translateY(-10px);
         }
 
@@ -561,4 +561,45 @@
 
 .cert-badge:hover span {
     color: var(--primary-orange);
+}
+
+
+.repo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.repo-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  padding: 2rem;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.repo-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--primary-orange);
+}
+
+.repo-card code {
+  color: var(--primary-orange);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.repo-card h3 {
+  margin: 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-light);
+}
+
+.repo-card p {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--text-muted);
 }
