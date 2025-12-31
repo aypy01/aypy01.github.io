@@ -64,7 +64,7 @@
             background-image: linear-gradient(0deg, #0000 10%, #fff1 90%, #0000 100%);
             background-size: 100% 80%;
             animation: crtAnimation 100s linear infinite;
-            opacity: 0.12;
+            opacity: 0.3;
         }
 
         @keyframes blink-bg {
@@ -116,6 +116,7 @@
             font-weight: 900;
 
         }
+        
         .success{
             color: var(--primary-green);
         }
@@ -155,7 +156,7 @@
 
         .social-uplink-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 1rem;
             margin-top: 2rem;
         }
@@ -185,8 +186,9 @@
         .brand-logo-svg {
             position: absolute;
             bottom: 8px; right: 8px;
-            width: 35px; height: 35px;
-            opacity: 0.6;
+            width: 60px; 
+            height: auto;
+            opacity: 0.75;
             fill: var(--primary-red);
             pointer-events: none;
             z-index: 1;
@@ -202,11 +204,16 @@
         .form-group input:focus { border-color: var(--primary-orange); outline: none; }
 
         button.btn-industrial {
-            background: var(--primary-orange); color: #000; border: none;
+            background: var(--text-light); color: #000; border: none;
             padding: 1rem 2rem;font-size: 1.2rem; font-weight: 700; cursor: pointer;
             text-transform: uppercase; font-family: inherit;
         }
-
+        button.btn-industrial:hover {
+            border-color: var(--primary-orange);
+            background: var(--primary-orange);
+            transform: translateY(-3px);
+        }
+        
         footer {
             border-top:2px solid var(--border-color);
             padding: 1rem 2rem; display: flex; justify-content: space-between;
@@ -235,14 +242,15 @@
 
         #rotating-quote {
             font-size: 1.5rem;
+            font-weight: 500;
             color: var(--text-light);
-            margin-top: 1rem;
+            padding-top: 1.5rem;
             line-height: 1.6;
             display: block;
             white-space: pre-wrap;
             width: 100%;
-            max-height: calc(1.6em * 3);
-            overflow: hidden;
+            height: auto;
+            
         }
         
 
