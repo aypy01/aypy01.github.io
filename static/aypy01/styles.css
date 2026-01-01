@@ -213,6 +213,16 @@
             background: var(--primary-orange);
             transform: translateY(-3px);
         }
+        button.btn-download-cv {
+            background: var(--text-light); color: #000; border: none;
+            padding: 0.5rem 1rem;font-size: 1.2rem; font-weight: 700; cursor: pointer;
+            text-transform: uppercase; font-family: inherit;
+        }
+        button.btn-download-cv:hover {
+            border-color: var(--primary-orange);
+            background: var(--primary-orange);
+            transform: translateY(-4px);
+        }
         
         footer {
             border-top:2px solid var(--border-color);
@@ -483,6 +493,7 @@
 
             /* Reduce button size to fit within narrow widths */
             button.btn-industrial { padding: 0.7rem 1.2rem; font-size: 0.9rem; }
+            button.btn-download-cv { padding: 0.3rem 1rem; font-size: 0.1rem; }
 
             /* Relax fixed heights so content can flow naturally */
             .response-container { min-height: 120px; }
